@@ -7,11 +7,13 @@
       %tr
         %th.downloads--icon
         %th URL
+        %td
         %th.downloads--timestamp Cancelled
     %tbody
       - @downloads.each do |download|
         %tr
           %td=download_icon(download)
           %td=link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+          %td=download_tags(download)
           %td=download.cancelled_at.to_s(:timestamp)
           

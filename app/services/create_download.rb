@@ -21,7 +21,8 @@ class CreateDownload < AppService
   end
 
   def audio?
-    !!params[:youtube_audio]
+    pp "-- params[:youtube_audio]: #{params[:youtube_audio]} => #{!!!params[:youtube_audio]}"
+    !!!params[:youtube_audio]
   end
 
   def youtube?
@@ -100,8 +101,8 @@ class CreateDownload < AppService
   def youtube_audio_download_params
     handle_filter_preset(
       params.clone.tap do |p|
-        p.delete(:youtube_sub)
-        p.delete(:youtube_srt_sub)
+        p.delete(:youtube_subs)
+        p.delete(:youtube_srt_subs)
       end
     )
   end
@@ -111,8 +112,8 @@ class CreateDownload < AppService
       params.clone.tap do |p|
         p.delete(:youtube_audio)
         p.delete(:youtube_audio_format)
-        p.delete(:youtube_sub)
-        p.delete(:youtube_srt_sub)
+        p.delete(:youtube_subs)
+        p.delete(:youtube_srt_subs)
       end
     )
   end 

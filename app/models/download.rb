@@ -38,11 +38,11 @@ class Download < ApplicationRecord
     update!(failed_at: Time.zone.now)
   end
 
-  private
-
   def http_auth?
     http_username && http_password
   end
+
+  private
 
   def command
     raise "#command implement me"

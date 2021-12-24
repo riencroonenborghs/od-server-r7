@@ -19,4 +19,26 @@ module DownloadsHelper
       download.class
     end
   end
+
+  def download_tags(download)
+    case download
+    when WgetDownload
+      concat(
+        content_tag(:span, nil, class: "fs-11 badge rounded-pill bg-primary text-light") { download.filter }
+      ) if download.filter
+      concat(
+        content_tag(:span, nil, class: "fs-11 badge rounded-pill bg-secondary text-light") { "HTTP auth" }
+      ) if download.http_auth?
+    when YoutubeAudioDownload
+      content_tag(:span, nil, class: "fs-11 badge rounded-pill bg-info text-light") { download.youtube_audio_format }
+    when YoutubeVideoDownload
+      pp download
+      concat(
+        content_tag(:span, nil, class: "fs-11 badge rounded-pill bg-success text-light") { "Subs" }
+      ) if download.youtube_subs
+      concat(
+        content_tag(:span, nil, class: "fs-11 badge rounded-pill bg-warning text-light") { "SRT" }
+      ) if download.youtube_srt_subs
+    end
+  end
 end

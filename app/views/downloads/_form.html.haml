@@ -25,12 +25,12 @@
 
   .row.d-none(data-newDownload-target="sub")
     .col-1.mb-3
-      = form.check_box :youtube_sub, { class: "form-check-input", data: { "newDownload-target" => "youtubeSub", action: "change->newDownload#subChanged" } }
-      = form.label :youtube_sub, "Subtitles", class: "form-label"
+      = form.check_box :youtube_subs, { class: "form-check-input", data: { "newDownload-target" => "youtubeSub", action: "change->newDownload#subChanged" } }
+      = form.label :youtube_subs, "Subtitles", class: "form-label"
     
     .col-2.mb-3
-      = form.check_box :youtube_srt_sub, { data: { "newDownload-target" => "srtSub" }, disabled: true, class: "form-check-input" }
-      = form.label :youtube_srt_sub, "SRT Subtitles", class: "form-label"
+      = form.check_box :youtube_srt_subs, { data: { "newDownload-target" => "srtSub" }, disabled: true, class: "form-check-input" }
+      = form.label :youtube_srt_subs, "SRT Subtitles", class: "form-label"
 
   .row
     .col-4.mb-3
