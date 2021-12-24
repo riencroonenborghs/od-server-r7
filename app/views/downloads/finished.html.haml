@@ -1,0 +1,19 @@
+- content_for :title do
+  Finished Downloads
+
+.container
+  %table.table.table-hover
+    %thead
+      %tr
+        %th.downloads--icon
+        %th URL
+        %th.downloads--timestamp Started
+        %th.downloads--timestamp Finished
+    %tbody
+      - @downloads.each do |download|
+        %tr
+          %td=download_icon(download)
+          %td=link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+          %td=download.started_at.to_s(:timestamp)
+          %td=download.finished_at.to_s(:timestamp)
+          

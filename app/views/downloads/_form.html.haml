@@ -1,0 +1,45 @@
+= form_with(model: download, url: downloads_path, method: :post) do |form|
+  - if download.errors.any?
+    %div(style="color: red")
+      %h2
+        = pluralize(download.errors.count, "error")
+        prohibited this download from being saved:
+
+      %ul
+        - download.errors.each do |error|
+          %li= error.full_message          
+
+  .row
+    .col-12.mb-3
+      = form.label :url, "URL", class: "form-label"
+      = form.text_field :url, class: "form-control", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }
+
+  .row.new-download--youtube-audio.d-none(data-newDownload-target="audio")
+    .col-1.mb-3      
+      = form.check_box :youtube_audio, { class: "form-check-input", data: { "newDownload-target" => "youtubeAudio", action: "change->newDownload#audioChanged" } }
+      = form.label :youtube_audio, "Audio", class: "form-label"
+    
+    .col-4.mb-3.d-none(data-newDownload-target="audioFormat")
+      = form.label :youtube_audio_format, "Audio Format", class: "form-label"
+      = form.select :youtube_audio_format, YoutubeAudioDownload::AUDIO_FORMATS, {}, { class: "form-select" }
+
+  .row.d-none(data-newDownload-target="sub")
+    .col-1.mb-3
+      = form.check_box :youtube_sub, { class: "form-check-input", data: { "newDownload-target" => "youtubeSub", action: "change->newDownload#subChanged" } }
+      = form.label :youtube_sub, "Subtitles", class: "form-label"
+    
+    .col-2.mb-3.d-none(data-newDownload-target="srtSub")
+      = form.check_box :youtube_srt_sub, class: "form-check-input"
+      = form.label :youtube_srt_sub, "SRT Subtitles", class: "form-label"
+
+  .row
+    .col-4.mb-3
+      = form.label :filter_preset, class: "form-label"
+      = form.select :filter_preset, Download::FILTER_PRESETS, { include_blank: true }, { class: "form-select" }
+    
+    .col-4.mb-3
+      = form.label :filter, class: "form-label"
+      = form.text_field :filter, class: "form-control"
+  
+
+  = form.submit "Create", class: "btn btn-primary"

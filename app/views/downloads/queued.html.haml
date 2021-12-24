@@ -1,0 +1,17 @@
+- content_for :title do
+  Queued Downloads
+
+.container.downloads
+  %table.table.table-hover
+    %thead
+      %tr
+        %th.downloads--icon
+        %th URL
+        %th.downloads--timestamp Queued
+    %tbody
+      - @downloads.each do |download|
+        %tr
+          %td=download_icon(download)
+          %td=link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+          %td=download.created_at.to_s(:timestamp)
+          

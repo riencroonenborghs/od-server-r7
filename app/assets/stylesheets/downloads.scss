@@ -1,0 +1,16 @@
+.downloads {
+  &--icon {
+    width: 3.4rem;
+  }
+  &--timestamp {
+    width: 10rem;
+  }
+}
+
+.new-download {
+  &--youtube-audio {
+    .col-1 {
+      padding-top: 2.5rem;
+    }
+  }
+}

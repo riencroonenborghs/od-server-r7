@@ -1,1 +1,11 @@
+$primary-color: aliceblue;
+
+$table-hover-bg: $primary-color;
 @import 'bootstrap/scss/bootstrap';
+
+.current-page {
+  background-color: $primary-color;
+  border-radius: 10px;
+}
+
+@import 'downloads';

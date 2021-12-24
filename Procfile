@@ -1,2 +1,4 @@
 web: bundle exec puma -C ./config/puma.rb
-# workers: bundle exec rake jobs:work
+#web: bin/rails server -p 3000
+js: yarn build --watch
+css: yarn build:css --watch
