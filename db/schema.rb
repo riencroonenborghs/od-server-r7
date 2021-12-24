@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_203314) do
   create_table "downloads", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "url", null: false
-    t.string "type", default: "WgetDownload", null: false
+    t.string "type"
     t.integer "status", default: 0, null: false
     t.string "http_username"
     t.string "http_password"

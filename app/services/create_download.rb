@@ -1,62 +1,119 @@
 class CreateDownload < AppService
-  attr_reader :base_download, :download
+  attr_reader :params, :user, :download
 
-  def initialize(base_download:)
-    @base_download = base_download
+  def initialize(user:, params:)
+    @user = user
+    @params = params.to_h
   end
 
   def call
-    @download = if bittorrent?
-                  BittorrentDownload.create!(attributes)
-                elsif google_drive?
-                  GoogleDriveDownload.create!(attributes)
-                elsif released_dot_tv?
-                  ReleasedDotTvDownload.create!(
-                    attributes.update(
-                      http_username: ENV["RELEASED_DOT_TV_USERNAME"],
-                      http_password: ENV["RELEASED_DOT_TV_PASSWORD"]
-                    )
-                  )
-                elsif youtube_audio?
-                  YoutubeAudioDownload.create!(attributes)
-                elsif youtube_video?
-                  YoutubeVideoDownload.create!(attributes)
-                else
-                  WgetDownload.create!(attributes)
-                end
+    build_download
+    download.save!
   rescue StandardError => e
+    pp e
     errors.add(:base, e)
   end
 
   private
 
-  def attributes
-    attrs = base_download.attributes
-    attrs.delete("type")
-    attrs
+  def url
+    params[:url]
+  end
+
+  def audio?
+    !!params[:youtube_audio]
   end
 
   def youtube?
-    base_download.url.match?(/youtube\.com|youtu\.be/)
+    url.match?(/youtube\.com|youtu\.be/)
   end
 
   def youtube_audio?
-    youtube? && base_download.youtube_audio?
+    youtube? && audio?
   end
 
   def youtube_video?
-    youtube? && !base_download.youtube_audio?
+    youtube? && !audio?
   end
 
   def bittorrent?
-    base_download.url.match?(/magnet\:/)
+    url.match?(/magnet\:/)
   end
 
   def google_drive?
-    base_download.url.match?(/drive\.google/)
+    url.match?(/drive\.google/)
   end
   
   def released_dot_tv?
-    base_download.url.match?(/released\.tv/)
+    url.match?(/released\.tv/)
   end
+
+  def build_download
+    @download = if bittorrent?
+                  user.bittorrent_downloads.build(bittorrent_download_params)
+                elsif google_drive?
+                  user.google_drive_downlaods.build(google_drive_download_params)
+                elsif released_dot_tv?
+                  user.released_dot_tv_downloads.build(
+                    released_dot_tv_params.update(
+                      http_username: ENV["RELEASED_DOT_TV_USERNAME"],
+                      http_password: ENV["RELEASED_DOT_TV_PASSWORD"]
+                    )
+                  )
+                elsif youtube_audio? 
+                  user.youtube_audio_downloads.build(youtube_audio_download_params)
+                elsif youtube_video?
+                  user.youtube_video_downloads.build(youtube_video_download_params)
+                else
+                  user.wget_downloads.build(wget_download_params)
+                end
+  end
+
+  def handle_filter_preset(params)
+    filter_preset = params.delete(:filter_preset)
+    return params unless filter_preset.present?
+
+    params.update(filter: "*#{filter_preset}*")
+  end
+  
+  def bittorrent_download_params
+    handle_filter_preset({ url: params[:url] })
+  end
+
+  def google_drive_download_params
+    bittorrent_download_params
+  end
+
+  def released_dot_tv_params
+    handle_filter_preset(wget_download_params)
+  end
+
+  def youtube_video_download_params
+    handle_filter_preset(
+      params.clone.tap do |p|
+        p.delete(:youtube_audio)
+        p.delete(:youtube_audio_format)
+      end
+    )
+  end
+
+  def youtube_audio_download_params
+    handle_filter_preset(
+      params.clone.tap do |p|
+        p.delete(:youtube_sub)
+        p.delete(:youtube_srt_sub)
+      end
+    )
+  end
+
+  def wget_download_params
+    handle_filter_preset(
+      params.clone.tap do |p|
+        p.delete(:youtube_audio)
+        p.delete(:youtube_audio_format)
+        p.delete(:youtube_sub)
+        p.delete(:youtube_srt_sub)
+      end
+    )
+  end 
 end

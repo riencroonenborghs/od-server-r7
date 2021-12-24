@@ -43,15 +43,16 @@ class DownloadsController < ApplicationController
   # end
 
   # # POST /downloads
-  # def create
-  #   @download = Download.new(download_params)
+  def create
+    service = CreateDownload.call(user: current_user, params: download_params)
 
-  #   if @download.save
-  #     redirect_to @download, notice: "Download was successfully created."
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
+    if service.success?
+      redirect_to queued_downloads_path, notice: "Download was successfully created."
+    else
+      @download = service.download
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   # # PATCH/PUT /downloads/1
   # def update
@@ -68,14 +69,14 @@ class DownloadsController < ApplicationController
   #   redirect_to downloads_url, notice: "Download was successfully destroyed."
   # end
 
-  # private
+  private
   #   # Use callbacks to share common setup or constraints between actions.
   #   def set_download
   #     @download = Download.find(params[:id])
   #   end
 
   #   # Only allow a list of trusted parameters through.
-  #   def download_params
-  #     params.require(:download).permit(:user_id, :url, :status)
-  #   end
+  def download_params
+    params.require(:download).permit(:url, :youtube_audio, :youtube_audio_format, :youtube_sub, :youtube_srt_sub, :filter_preset, :filter)
+  end
 end

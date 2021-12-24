@@ -4,7 +4,7 @@ class CreateDownloads < ActiveRecord::Migration[7.0]
       # for all downloads
       t.references :user, null: false, foreign_key: true
       t.string :url, null: false
-      t.string :type, null: false, default: "WgetDownload"
+      t.string :type
       t.integer :status, null: false, default: 0
       t.string :http_username
       t.string :http_password

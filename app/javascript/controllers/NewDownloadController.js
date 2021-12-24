@@ -6,7 +6,7 @@ export default class extends Controller {
 
   urlChanged () {
     const url = this.urlTarget.value;
-    if (url.match(/youtube|youtu\.be/)) {
+    if (url.match(/youtube\.com|youtu\.be/)) {
       this.audioTarget.classList.remove("d-none");
       this.subTarget.classList.remove("d-none");
     } else {
@@ -18,18 +18,18 @@ export default class extends Controller {
   audioChanged () {
     const audio = this.youtubeAudioTarget.checked;
     if (audio) {
-      this.audioFormatTarget.classList.remove("d-none");
+      this.audioFormatTarget.disabled = false;
     } else {
-      this.audioFormatTarget.classList.add("d-none");
+      this.audioFormatTarget.disabled = true;
     }
   }
 
   subChanged () {
     const sub = this.youtubeSubTarget.checked;
     if (sub) {
-      this.srtSubTarget.classList.remove("d-none");
+      this.srtSubTarget.disabled = false;
     } else {
-      this.srtSubTarget.classList.add("d-none");
+      this.srtSubTarget.disabled = true;
     }
   }
 }
