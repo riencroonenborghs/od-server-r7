@@ -6,7 +6,7 @@ class BittorrentDownload < Download
   end
 
   def command
-    command     = "transmission-cli"
+    command     = ENV["TRANSMISSION_CLI_PATH"]
     kill_script = File.join(Rails.root, "bin", "kill_transmission_cli.sh")
 
     [].tap do |cmd|

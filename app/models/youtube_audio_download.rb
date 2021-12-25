@@ -6,7 +6,7 @@ class YoutubeAudioDownload < Download
   private
 
   def command
-    "youtube-dl"
+    ENV["YOUTUBE_DL_PATH"]
   end
 
   def command_options

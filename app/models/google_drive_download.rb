@@ -2,7 +2,7 @@ class GoogleDriveDownload < Download
   private
 
   def command
-    "gdl"
+    ENV["GDL_PATH"]
   end
 
   def command_options

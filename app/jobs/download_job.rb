@@ -5,6 +5,7 @@ class DownloadJob < ApplicationJob
 
     download.started!
     pp "------ #{download.url} started"
+    pp download.build_command
     sleep 60
     download.finished!
     pp "------ #{download.url} done"
@@ -13,4 +14,8 @@ class DownloadJob < ApplicationJob
   private
 
   attr_reader :download
+
+  def command
+    download.build_command
+  end
 end

@@ -2,7 +2,7 @@ class ReleasedDotTvDownload < Download
   private
 
   def command
-    "wget"
+    ENV["WGET_PATH"]
   end
 
   def command_options

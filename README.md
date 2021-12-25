@@ -1,24 +1,26 @@
-# README
+# OD Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails 7 based download server.
 
-Things you may want to cover:
+Makes use of basic open source tools to download data from various sources:
+  - Standard HTTP(s)/FTP
+  - Google Drive
+  - YouTube audio & video
+  - Bittorrent
 
-* Ruby version
+## Install
 
-* System dependencies
+### Required software
 
-* Configuration
+To get the full benefit, you will need:
+  - [wget](https://www.gnu.org/software/wget/)
+  - [gdl](https://github.com/Akianonymus/gdrive-downloader) (gdrive-downloader)
+  - [transmission-cli](https://transmissionbt.com/)
+  - [youtube-dl](https://youtube-dl.org/)
 
-* Database creation
+### Rails things
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  - `bundle install`
+  - `overmind start` or similar to run the `Procfile`
+  - copy `.env.example` to `.env` and fill in the bits
+  - create a user with the rails console (see `db/seeds.rb` for an example)
