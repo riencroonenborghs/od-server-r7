@@ -7,6 +7,7 @@
       %tr
         %th.downloads--icon
         %th URL
+        %th.downloads--timestamp Queued
         %th.downloads--timestamp Started
         %th.downloads--timestamp Finished
     %tbody
@@ -16,6 +17,7 @@
           %td.d-flex.align-items-center
             = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
             = render partial: "tags", locals: { download: download }
+          %td=download.created_at.to_s(:timestamp)
           %td=download.started_at.to_s(:timestamp)
           %td=download.finished_at.to_s(:timestamp)
           

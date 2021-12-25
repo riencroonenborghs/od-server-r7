@@ -10,9 +10,11 @@ class CreateDownload < AppService
 
   def call
     build_download
+    return unless download
+
     download.save!
+    queue_download if download
   rescue StandardError => e
-    pp e
     errors.add(:base, e)
   end
 
@@ -100,5 +102,9 @@ class CreateDownload < AppService
 
   def wget_download_params
     params
-  end 
+  end
+
+  def queue_download
+    DownloadJob.perform_later(download.id)
+  end
 end
