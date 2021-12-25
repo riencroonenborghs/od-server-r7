@@ -5,6 +5,17 @@
   &--timestamp {
     width: 10rem;
   }
+  &--icons {
+    .bi-youtube {
+      color: #ff0000;
+    }
+    .bi-google {
+      color: #4285f4;
+    }
+    .bi-music-note, .bi-film {
+      color: lightgrey;
+    }    
+  }
 }
 
 .new-download {

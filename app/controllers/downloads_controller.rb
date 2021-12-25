@@ -44,7 +44,12 @@ class DownloadsController < ApplicationController
 
   # # POST /downloads
   def create
-    service = CreateDownload.call(user: current_user, params: download_params)
+    service = CreateDownload.call(
+      user: current_user,
+      params: download_params,
+      youtube_audio_params: youtube_audio_params,
+      youtube_video_params: youtube_video_params
+    )
 
     if service.success?
       redirect_to queued_downloads_path, notice: "Download was successfully created."
@@ -77,6 +82,14 @@ class DownloadsController < ApplicationController
 
   #   # Only allow a list of trusted parameters through.
   def download_params
-    params.require(:download).permit(:url, :youtube_audio, :youtube_audio_format, :youtube_sub, :youtube_srt_sub, :filter_preset, :filter)
+    params.require(:download).permit(:url, :filter_preset, :filter)
+  end
+
+  def youtube_audio_params
+    params.require(:download).permit(:youtube_audio, :youtube_audio_format)
+  end
+
+  def youtube_video_params
+    params.require(:download).permit(:youtube_subs, :youtube_srt_subs)
   end
 end

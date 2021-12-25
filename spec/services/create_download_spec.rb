@@ -2,7 +2,9 @@ require "rails_helper"
 
 RSpec.describe CreateDownload do
   let(:user) { create :user }
-  let(:subject) { described_class.call(user: user, params: params) }
+  let(:youtube_audio_params) { {} }
+  let(:youtube_video_params) { {} }
+  let(:subject) { described_class.call(user: user, params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
 
   shared_examples "creates a download" do |klass|
     it "is a success" do
@@ -41,7 +43,8 @@ RSpec.describe CreateDownload do
     end
 
     context "when it's a youtube audio download" do
-      let(:params) { { url: "https://www.youtube.com/watch?v=foobarbaz", youtube_audio: true, youtube_audio_format: "best" } }
+      let(:params) { { url: "https://www.youtube.com/watch?v=foobarbaz" } }
+      let(:youtube_audio_params) { { youtube_audio: "true", youtube_audio_format: "best" } }
 
       it_behaves_like "creates a download", YoutubeAudioDownload
     end

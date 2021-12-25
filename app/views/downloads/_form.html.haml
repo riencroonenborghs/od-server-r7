@@ -16,7 +16,7 @@
 
   .row.new-download--youtube-audio.d-none(data-newDownload-target="audio")
     .col-1.mb-3      
-      = form.check_box :youtube_audio, { class: "form-check-input", data: { "newDownload-target" => "youtubeAudio", action: "change->newDownload#audioChanged" } }
+      = form.check_box :youtube_audio, { class: "form-check-input", data: { "newDownload-target" => "youtubeAudio", action: "change->newDownload#audioChanged" } }, true, false
       = form.label :youtube_audio, "Audio", class: "form-label"
     
     .col-4.mb-3

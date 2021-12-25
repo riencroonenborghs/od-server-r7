@@ -7,13 +7,13 @@
       %tr
         %th.downloads--icon
         %th URL
-        %th
         %th.downloads--timestamp Started
     %tbody
       - @downloads.each do |download|
         %tr
-          %td=download_icon(download)
-          %td=link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
-          %td=download_tags(download)
+          %td.downloads--icons=download_icon(download)
+          %td.d-flex.align-items-center
+            = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+            = render partial: "tags", locals: { download: download }
           %td=download.started_at.to_s(:timestamp)
           

@@ -1,9 +1,11 @@
 class CreateDownload < AppService
-  attr_reader :params, :user, :download
+  attr_reader :user, :params, :youtube_audio_params, :youtube_video_params, :download
 
-  def initialize(user:, params:)
+  def initialize(user:, params:, youtube_audio_params:, youtube_video_params:)
     @user = user
-    @params = params.to_h
+    @params = process_filter_preset(params.to_h)
+    @youtube_audio_params = youtube_audio_params.to_h
+    @youtube_video_params = youtube_video_params.to_h
   end
 
   def call
@@ -21,8 +23,7 @@ class CreateDownload < AppService
   end
 
   def audio?
-    pp "-- params[:youtube_audio]: #{params[:youtube_audio]} => #{!!!params[:youtube_audio]}"
-    !!!params[:youtube_audio]
+    youtube_audio_params[:youtube_audio] == "true"
   end
 
   def youtube?
@@ -53,7 +54,7 @@ class CreateDownload < AppService
     @download = if bittorrent?
                   user.bittorrent_downloads.build(bittorrent_download_params)
                 elsif google_drive?
-                  user.google_drive_downlaods.build(google_drive_download_params)
+                  user.google_drive_downloads.build(google_drive_download_params)
                 elsif released_dot_tv?
                   user.released_dot_tv_downloads.build(
                     released_dot_tv_params.update(
@@ -70,7 +71,7 @@ class CreateDownload < AppService
                 end
   end
 
-  def handle_filter_preset(params)
+  def process_filter_preset(params)
     filter_preset = params.delete(:filter_preset)
     return params unless filter_preset.present?
 
@@ -78,43 +79,26 @@ class CreateDownload < AppService
   end
   
   def bittorrent_download_params
-    handle_filter_preset({ url: params[:url] })
+    { url: params[:url] }
   end
 
   def google_drive_download_params
-    bittorrent_download_params
+    { url: params[:url] }
   end
 
   def released_dot_tv_params
-    handle_filter_preset(wget_download_params)
+    { url: params[:url] }
   end
 
   def youtube_video_download_params
-    handle_filter_preset(
-      params.clone.tap do |p|
-        p.delete(:youtube_audio)
-        p.delete(:youtube_audio_format)
-      end
-    )
+    params.update(youtube_video_params)
   end
 
   def youtube_audio_download_params
-    handle_filter_preset(
-      params.clone.tap do |p|
-        p.delete(:youtube_subs)
-        p.delete(:youtube_srt_subs)
-      end
-    )
+    params.update(youtube_audio_params)
   end
 
   def wget_download_params
-    handle_filter_preset(
-      params.clone.tap do |p|
-        p.delete(:youtube_audio)
-        p.delete(:youtube_audio_format)
-        p.delete(:youtube_subs)
-        p.delete(:youtube_srt_subs)
-      end
-    )
+    params
   end 
 end
