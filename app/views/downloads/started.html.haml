@@ -13,7 +13,7 @@
       - @downloads.each do |download|
         %tr
           %td.downloads--icons=download_icon(download)
-          %td.d-flex.align-items-center
+          %td
             = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)

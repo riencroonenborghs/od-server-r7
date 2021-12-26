@@ -42,7 +42,6 @@ class DownloadsController < ApplicationController
   # def edit
   # end
 
-  # # POST /downloads
   def create
     service = CreateDownload.call(
       user: current_user,
@@ -69,10 +68,11 @@ class DownloadsController < ApplicationController
   # end
 
   # # DELETE /downloads/1
-  # def destroy
-  #   @download.destroy
-  #   redirect_to downloads_url, notice: "Download was successfully destroyed."
-  # end
+  def destroy
+    download = current_user.downloads.find params[:id]
+    download.destroy
+    redirect_to downloads_url, notice: "Download was successfully removed."
+  end
 
   private
   #   # Use callbacks to share common setup or constraints between actions.
