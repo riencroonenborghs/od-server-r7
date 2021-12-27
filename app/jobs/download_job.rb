@@ -1,9 +1,12 @@
 class DownloadJob < ApplicationJob
+  queue_as :default
+
   def perform(download_id)
     @download = Download.find(download_id)
     return unless download
 
     prep_output_path
+    Rails.logger.info command
     perform_download!
   end
 
@@ -17,7 +20,7 @@ class DownloadJob < ApplicationJob
   end
 
   def command
-    download.build_command
+    @command ||= download.build_command
   end
 
   def perform_download!
