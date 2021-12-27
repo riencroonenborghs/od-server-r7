@@ -7,7 +7,7 @@ gem "bootsnap", require: false
 gem "brakeman"
 gem "bundler-audit"
 gem "cssbundling-rails"
-gem "delayed"
+gem "daemons"
 gem "devise"
 gem "dotenv-rails"
 gem "foreman"

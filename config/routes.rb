@@ -4,11 +4,14 @@ Rails.application.routes.draw do
   devise_scope :user do    
     resources :downloads, only: [:index, :new, :create, :destroy] do
       collection do
-        get :queued
+        get :queued        
         get :started
         get :finished
         get :failed
         get :cancelled
+      end
+      member do
+        post :queue
       end
     end
   end

@@ -9,6 +9,7 @@
         %th URL
         %th.downloads--timestamp Queued
         %th.downloads--timestamp Cancelled
+        %th.downloads--action-icons
     %tbody
       - @downloads.each do |download|
         %tr
@@ -18,4 +19,10 @@
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)
           %td=download.cancelled_at.to_s(:timestamp)
+          %td.p-0
+            .d-flex
+              = button_to download_path(download), method: :delete, title: "Remove", class: "btn" do
+                %i.bi.bi-trash.text-danger
+              = button_to queue_download_path(download), title: "Queue again", class: "btn" do
+                %i.bi.bi-arrow-clockwise
           

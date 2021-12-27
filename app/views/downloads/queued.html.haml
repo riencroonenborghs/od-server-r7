@@ -8,7 +8,7 @@
         %th.downloads--icon
         %th URL
         %th.downloads--timestamp Queued
-        %th
+        %th.downloads--action-icons
     %tbody
       - @downloads.each do |download|
         %tr
@@ -17,6 +17,6 @@
             = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)
-          %td
-            = link_to download_path(download), method: :delete, title: "Remove" do
-              %i.bi.bi-trash
+          %td.p-0
+            = button_to download_path(download), method: :delete, title: "Remove", class: "btn" do
+              %i.bi.bi-trash.text-danger

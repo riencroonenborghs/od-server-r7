@@ -70,10 +70,16 @@ class DownloadsController < ApplicationController
   # # DELETE /downloads/1
   def destroy
     download = current_user.downloads.find params[:id]
+    status = download.status
     download.destroy
-    redirect_to downloads_url, notice: "Download was successfully removed."
+    redirect_to send(:"#{status}_downloads_url"), notice: "Download was successfully removed."
   end
 
+  def queue
+    download = current_user.downloads.find params[:id]
+    download.queue!
+    redirect_to downloads_url, notice: "Download was successfully queued again."
+  end
   private
   #   # Use callbacks to share common setup or constraints between actions.
   #   def set_download

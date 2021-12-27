@@ -42,6 +42,12 @@ class Download < ApplicationRecord
     http_username && http_password
   end
 
+  def queue!
+    queued!
+    update!(started_at: nil, finished_at: nil, cancelled_at: nil, failed_at: nil)
+    DownloadJob.perform_later(id)
+  end
+
   private
 
   def command
