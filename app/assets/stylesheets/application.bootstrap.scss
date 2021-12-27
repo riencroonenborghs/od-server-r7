@@ -12,4 +12,40 @@ $table-hover-bg: $primary-color;
   font-size: 0.4rem;
 }
 
+.menu {
+  &--queue-size {
+    top: 10px !important;
+  }
+  &--env {
+    top: 10px !important;
+    left: 12px;
+  }
+
+  &--queued {
+    i {
+      color: blue;
+    }
+  }
+  &--started {
+    i {
+      color: orange;
+    }
+  }
+  &--finished {
+    i {
+      color: green;
+    }
+  }
+  &--cancelled {
+    i {
+      color: #acaf37;
+    }
+  }
+  &--failed {
+    i {
+      color: #e93737;
+    }
+  }
+}
+
 @import 'downloads';

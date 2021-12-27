@@ -1,7 +1,13 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do  
   devise_for :users
 
   devise_scope :user do    
+    authenticated :user do
+      mount Sidekiq::Web => '/sidekiq'
+    end
+
     resources :downloads, only: [:index, :new, :create, :destroy] do
       collection do
         get :queued        

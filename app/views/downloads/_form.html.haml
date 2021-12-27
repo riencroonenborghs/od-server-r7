@@ -12,7 +12,7 @@
   .row
     .col-12.mb-3
       = form.label :url, "URL", class: "form-label"
-      = form.text_field :url, type: "url", class: "form-control", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }
+      = form.text_field :url, type: "url", class: "form-control", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }, autofocus: true
 
   .row.new-download--youtube-audio.d-none(data-newDownload-target="audio")
     .col-1.mb-3      
