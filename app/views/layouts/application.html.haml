@@ -54,8 +54,11 @@
                 %span.fs-11.position-fixed.menu--queue-size.badge.rounded-pill.bg-danger=@queue_sizes["failed"]
           .ps-3.pe-3
           - if user_signed_in?
+            %div(class="#{'current-page' if current_page?(new_search_path)}")
+              = link_to new_search_path, title: "Search", class: "btn" do
+                %i.bi.bi-search
             %div
-              = link_to destroy_user_session_path, method: :delete, title: "Log out", class: "btn" do
+              = button_to destroy_user_session_path, method: :delete, title: "Log out", class: "btn" do
                 %i.bi.bi-lock
           - else
             %div(class="#{'current-page' if current_page?(new_user_session_path)}")

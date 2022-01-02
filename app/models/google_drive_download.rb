@@ -10,6 +10,6 @@ class GoogleDriveDownload < Download
   end
 
   def command_output
-    "--directory=\"#{ENV["OUTPUT_PATH"]}\""
+    "--directory \"#{ENV["OUTPUT_PATH"]}\""
   end
 end

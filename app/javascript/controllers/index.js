@@ -9,3 +9,6 @@ import { application } from "./application"
 
 import NewDownloadController from "./NewDownloadController";
 application.register("newDownload", NewDownloadController)
+
+import SearchController from "./SearchController";
+application.register("search", SearchController)

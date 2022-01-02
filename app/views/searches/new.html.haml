@@ -1,0 +1,38 @@
+- content_for :title do
+  Search
+
+.container.search(data-controller="search")
+  %h2 Search
+
+  = form_with(scope: :search, url: searches_path, method: :post) do |form|
+    .row
+      .col-10.mb-3
+        = form.label :query, class: "form-label"
+        = form.text_field :query, class: "form-control", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
+      .col-2.mt-4.pt-2
+        = link_to "#", class: "btn", data: { action: "click->search#searchClicked" } do
+          %i.bi.bi-search
+        %button(type="sbmit" class="btn")
+          %i.bi.bi-save
+
+    .row
+      .col-4.mb-3
+        = form.label :query_type, "Type", class: "form-label"
+        = form.select :query_type, query_types, {}, { data: { "search-target" => "queryType", action: "change->search#queryTypeChanged" }, class: "form-select" }
+
+      .col-2.mb-3.search--check-box
+        = form.check_box :alternative, { class: "form-check-input", data: { "search-target" => "alternative", action: "change->search#alternativeChanged" } }
+        = form.label :alternative, class: "form-label"
+      
+      .col-2.mb-3.search--check-box
+        = form.check_box :quoted, { class: "form-check-input", data: { "search-target" => "quoted", action: "change->search#quotedChanged" } }
+        = form.label :quoted, class: "form-label"
+      
+      -#.col-2.mb-3.search--check-box
+        = form.check_box :incognito, { class: "form-check-input", data: { "search-target" => "incognito", action: "change->search#incognitoChanged" } }
+        = form.label :incognito, class: "form-label"
+
+    .row
+      .col-10.fs-7.search--url.pt-1.pb-1.d-none(data-search-target="url")
+    
+    =# form.submit "Save", class: "btn btn-primary"

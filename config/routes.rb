@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         post :queue
       end
     end
+
+    resources :searches, only: [:index, :new, :post]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

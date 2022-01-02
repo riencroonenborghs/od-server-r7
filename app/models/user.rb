@@ -11,4 +11,6 @@ class User < ApplicationRecord
   has_many :youtube_audio_downloads, dependent: :destroy, class_name: "YoutubeAudioDownload"
   has_many :youtube_video_downloads, dependent: :destroy, class_name: "YoutubeVideoDownload"
   has_many :wget_downloads, dependent: :destroy, class_name: "WgetDownload"
+
+  has_many :searches, dependent: :destroy
 end

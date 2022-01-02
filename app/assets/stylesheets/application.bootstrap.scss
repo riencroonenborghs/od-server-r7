@@ -8,6 +8,10 @@ $table-hover-bg: $primary-color;
   border-radius: 10px;
 }
 
+.fs-7 {
+  font-size: 0.75rem;
+}
+
 .fs-11 {
   font-size: 0.4rem;
 }
@@ -49,3 +53,4 @@ $table-hover-bg: $primary-color;
 }
 
 @import 'downloads';
+@import 'search';
