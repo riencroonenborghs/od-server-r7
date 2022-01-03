@@ -21,7 +21,8 @@
           %div
             = link_to root_path, class: "btn" do
               OD
-              %span.fs-11.menu--item--queue.badge.rounded-pill.bg-danger=Rails.env.first(3)
+              - unless Rails.env.production?
+                %span.fs-11.menu--item--queue.badge.rounded-pill.bg-danger=Rails.env.first(3)
             .ps-3.pe-3 &nbsp;
             .menu--queued(class="#{'current-page' if current_page?(queued_downloads_path) || current_page?(root_path)}")
               = link_to queued_downloads_path, title: "Queued Downloads", class: "btn menu--item" do
