@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :searches, only: [:index, :new, :post]
+    resources :searches, only: [:index, :new, :create, :destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

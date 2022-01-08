@@ -1,0 +1,27 @@
+%table.table.table-hover.searches
+  %thead
+    %tr
+      %th
+      %th Query
+      %th Alternative?
+      %th Quoted?
+  %tbody
+    - searches.each do |search|
+      - next unless search.persisted?
+      %tr
+        %td.searches--icons
+          .d-flex
+            = query_type_icon(search)
+            %div.btn(data-controller="searches" data-searches-search="#{search.as_json.to_json}" data-action="click->searches#searchClicked")
+              %i.bi.bi-play-fill
+            = button_to search_path(search), method: :delete, title: "Remove", class: "btn" do
+              %i.bi.bi-trash.text-danger
+        %td
+          .d-flex.align-items-center
+            =search.query
+        %td.searches--alternative
+          - if search.alternative
+            %i.bi.bi-check
+        %td.searches--quoted
+          - if search.quoted
+            %i.bi.bi-check

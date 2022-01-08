@@ -12,6 +12,7 @@ class SearchesController < ApplicationController
 
   # GET /searches/new
   def new
+    @searches = current_user.searches
     @search = current_user.searches.new(quoted: true, incognito: true)
   end
 
@@ -20,15 +21,16 @@ class SearchesController < ApplicationController
   # end
 
   # # POST /searches
-  # def create
-  #   @search = Search.new(search_params)
+  def create
+    service = CreateSearch.call(user: current_user, params: search_params)
 
-  #   if @search.save
-  #     redirect_to @search, notice: "Search was successfully created."
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
+    if service.success?
+      redirect_to new_search_path, notice: "Search was successfully created."
+    else
+      @search = service.search
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   # # PATCH/PUT /searches/1
   # def update
@@ -40,19 +42,20 @@ class SearchesController < ApplicationController
   # end
 
   # # DELETE /searches/1
-  # def destroy
-  #   @search.destroy
-  #   redirect_to searches_url, notice: "Search was successfully destroyed."
-  # end
+  def destroy
+    search = current_user.searches.find(params[:id])
+    search.destroy
+    redirect_to new_search_path, notice: "Search was successfully removed."
+  end
 
-  # private
+  private
   #   # Use callbacks to share common setup or constraints between actions.
   #   def set_search
   #     @search = Search.find(params[:id])
   #   end
 
   #   # Only allow a list of trusted parameters through.
-  #   def search_params
-  #     params.require(:search).permit(:user_id, :query, :query_type, :alternative, :quoted, :incognito)
-  #   end
+  def search_params
+    params.require(:search).permit(:query, :query_type, :alternative, :quoted)
+  end
 end

@@ -8,3 +8,15 @@
     border-radius: 4px;
   }
 }
+
+.searches {
+  &--icons {
+    width: 145px
+  }
+  &--alternative, &--quoted {
+    width: 75px;
+  }
+  td {
+    vertical-align: middle;
+  }
+}

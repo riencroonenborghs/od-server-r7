@@ -10,9 +10,9 @@
         = form.label :query, class: "form-label"
         = form.text_field :query, class: "form-control", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
       .col-2.mt-4.pt-2
-        = link_to "#", class: "btn", data: { action: "click->search#searchClicked" } do
+        = link_to "#", class: "btn btn-light me-2", data: { action: "click->search#searchClicked" } do
           %i.bi.bi-search
-        %button(type="sbmit" class="btn")
+        %button(type="sbmit" class="btn btn-info")
           %i.bi.bi-save
 
     .row
@@ -35,4 +35,4 @@
     .row
       .col-10.fs-7.search--url.pt-1.pb-1.d-none(data-search-target="url")
     
-    =# form.submit "Save", class: "btn btn-primary"
+  = render partial: "searches", locals: { searches: @searches }

@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
-// import HelloController from "./hello_controller"
-// application.register("hello", HelloController)
-
 import NewDownloadController from "./NewDownloadController";
 application.register("newDownload", NewDownloadController)
 
 import SearchController from "./SearchController";
 application.register("search", SearchController)
+
+import SearchesController from "./SearchesController";
+application.register("searches", SearchesController)
