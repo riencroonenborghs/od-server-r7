@@ -1,5 +1,5 @@
 - if download.is_a? WgetDownload
-  - if download.filter
+  - if download.filter.present?
     %span.tag.is-primary.is-size-8
       = download.filter
   - if download.http_auth?
