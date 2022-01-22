@@ -1,8 +1,10 @@
 - content_for :title do
   Queued Downloads
 
-.container.downloads
-  %table.table.table-hover
+.pt-2.mr-4.pr-4.downloads.downloads--queued
+  .title Queued Downloads
+
+  %table.table.is-narrow.is-hoverable.is-fullwidth
     %thead
       %tr
         %th.downloads--icon
@@ -14,9 +16,10 @@
         %tr
           %td.downloads--icons=download_icon(download)
           %td
-            = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+            = link_to download.url, download.url, target: "_blank"
+            %br
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)
-          %td.p-0
-            = button_to download_path(download), method: :delete, title: "Remove", class: "btn" do
-              %i.bi.bi-trash.text-danger
+          %td.downloads--action-icons.p-0
+            = button_to download_path(download), method: :delete, title: "Remove", class: "button is-white downloads--action-icons--remove" do
+              = fa_solid "trash", size: 1

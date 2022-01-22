@@ -1,0 +1,38 @@
+.menu {
+  background: $primary;
+  position: sticky;
+  top: 0px;
+
+  &-list {
+    .is-flex {
+      height: calc(100vh);
+    }
+
+    li {
+      a {
+        text-align: center;
+        &.is-active {
+          background: $primary-dark;
+          color: unset;
+          width: 100px;
+        }
+        &:hover {
+          background: $success-dark;
+        }
+      }
+
+      form {
+        text-align: center;
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .tag {
+    font-size: 0.5rem;
+    position: absolute;
+    left: 10px;
+  }
+}

@@ -2,7 +2,7 @@ class DownloadsController < ApplicationController
   # before_action :set_download, only: %i[ show edit update destroy ]
 
   def index
-    redirect_to queued_downloads_path
+    redirect_to new_download_path
   end
 
   def queued

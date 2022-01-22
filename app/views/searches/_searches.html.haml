@@ -1,4 +1,4 @@
-%table.table.table-hover.searches
+%table.table.is-narrow.is-hoverable.is-fullwidth.mt-4
   %thead
     %tr
       %th
@@ -10,18 +10,21 @@
       - next unless search.persisted?
       %tr
         %td.searches--icons
-          .d-flex
-            = query_type_icon(search)
-            %div.btn(data-controller="searches" data-searches-search="#{search.as_json.to_json}" data-action="click->searches#searchClicked")
-              %i.bi.bi-play-fill
-            = button_to search_path(search), method: :delete, title: "Remove", class: "btn" do
-              %i.bi.bi-trash.text-danger
+          .is-flex
+            .pt-2
+              = query_type_icon(search)
+            %div.button.is-white.has-text-primary(data-controller="searches" data-searches-search="#{search.as_json.to_json}" data-action="click->searches#searchClicked")
+              = fa_solid "play", size: 1
+            = button_to search_path(search), method: :delete, title: "Remove", class: "button is-white has-text-danger" do
+              = fa_solid "trash", size: 1
         %td
-          .d-flex.align-items-center
+          .pt-2
             =search.query
         %td.searches--alternative
           - if search.alternative
-            %i.bi.bi-check
+            .pt-2
+              = fa_solid "check", size: 1
         %td.searches--quoted
           - if search.quoted
-            %i.bi.bi-check
+            .pt-2
+              = fa_solid "check", size: 1

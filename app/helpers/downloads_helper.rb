@@ -2,19 +2,17 @@ module DownloadsHelper
   def download_icon(download)
     case download
     when WgetDownload
-      content_tag(:i, nil, class: "bi bi-cloud-arrow-down")
+      fa_solid "download", size: 1
     when GoogleDriveDownload
-      content_tag(:i, nil, class: "bi bi-google")
+      fa_brands "google-drive", size: 1
     when BittorrentDownload
-      content_tag(:i, nil, class: "bi bi-arrow-down-up")
+      fa_solid "cloud-download-alt", size: 1
     when YoutubeAudioDownload
-      content_tag(:i, nil, class: "bi bi-youtube") +
-        content_tag(:i, nil, class: "bi bi-music-note")
+      fa_brands("youtube", size: 1).concat(fa_solid("music", size: 1))
     when YoutubeVideoDownload
-      content_tag(:i, " ", class: "bi bi-youtube") +
-      content_tag(:i, nil, class: "bi bi-film")
+      fa_brands("youtube", size: 1).concat(fa_solid("film", size: 1))
     when ReleasedDotTvDownload
-      content_tag(:i, nil, class: "bi bi-tv")
+      fa_solid "tv", size: 1
     else
       download.class
     end

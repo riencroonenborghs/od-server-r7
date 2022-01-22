@@ -1,8 +1,10 @@
 - content_for :title do
   Cancelled Downloads
 
-.container
-  %table.table.table-hover
+.pt-2.mr-4.pr-4.downloads.downloads--cancelled
+  .title Cancelled Downloads
+
+  %table.table.is-narrow.is-hoverable.is-fullwidth
     %thead
       %tr
         %th.downloads--icon
@@ -15,14 +17,15 @@
         %tr
           %td.downloads--icons=download_icon(download)
           %td
-            = link_to download.url, download.url, class: "text-decoration-none", target: "_blank"
+            = link_to download.url, download.url, target: "_blank"
+            %br
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)
           %td=download.cancelled_at.to_s(:timestamp)
           %td.p-0
-            .d-flex
-              = button_to download_path(download), method: :delete, title: "Remove", class: "btn" do
-                %i.bi.bi-trash.text-danger
-              = button_to queue_download_path(download), title: "Queue again", class: "btn" do
-                %i.bi.bi-arrow-clockwise
+            .is-flex
+              = button_to download_path(download), method: :delete, title: "Remove", class: "button is-white downloads--action-icons--remove" do
+                = fa_solid "trash", size: 1
+              = button_to queue_download_path(download), method: :delete, title: "Queue again", class: "button is-white downloads--action-icons--queue" do
+                = fa_solid "redo", size: 1
           

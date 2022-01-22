@@ -11,21 +11,21 @@ module SearchesHelper
   def query_type_icon(search)
     case search.query_type
     when "movies"
-      content_tag(:i, nil, class: "btn bi bi-film")
+      fa_solid "film", size: 1
     when "tpb"
-      content_tag(:i, nil, class: "btn bi bi-cloud")
+      fa_solid "cloud-download-alt", size: 1
     when "rarbg"
-      content_tag(:i, nil, class: "btn bi bi-cloud")
+      fa_solid "cloud-download-alt", size: 1
     when "youtube"
-      content_tag(:i, nil, class: "btn bi bi-youtube")
+      fa_brands("youtube", size: 1)
     when "music"
-      content_tag(:i, nil, class: "btn bi bi-music-not-beamed")
+      fa_solid("music", size: 1)
     when "books"
-      content_tag(:i, nil, class: "btn bi bi-book")
+      fa_solid("book-open", size: 1)
     when "mac_software"
-      content_tag(:i, nil, class: "btn bi bi-apple")
+      fa_brands("apple", size: 1)
     when "general"
-      content_tag(:i, nil, class: "btn bi bi-search")
+      fa_solid("search", size: 1)
     end
   end
 end

@@ -41,9 +41,9 @@ export default class extends Controller {
     if (search.query !== '') {
       const service = new SearchService(search);
       this.urlTarget.innerText = service.service.url;
-      this.urlTarget.classList.remove("d-none");
+      this.urlTarget.classList.remove("is-hidden");
     } else {
-      this.urlTarget.classList.add("d-none");
+      this.urlTarget.classList.add("is-hidden");
     }
     return search;
   }

@@ -1,0 +1,24 @@
+.panel {
+  &.is-flash-message {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    margin: 32px;
+
+    a {
+      color: $white;
+      &:hover {
+        color: $light;
+      }
+    }
+  }
+  &.is-alert {
+    background: $danger;    
+  }
+  &.is-notice {
+    background: $success;
+  }
+  .panel-block {
+    color: $white;
+  }
+}

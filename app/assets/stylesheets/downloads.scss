@@ -1,23 +1,29 @@
 .downloads {
   &--icon {
-    width: 3.4rem;
+    width: 4rem;
   }
   &--timestamp {
     width: 10rem;
   }
   &--icons {
-    .bi-youtube {
+    .fa-download {
+      color: grey;
+    }
+    .fa-youtube {
       color: #ff0000;
     }
-    .bi-google {
+    .fa-google-drive {
       color: #4285f4;
     }
-    .bi-music-note, .bi-film {
+    .fa-music, .fa-film {
       color: lightgrey;
     }    
   }
   &--action-icons {
-    width: 20px;
+    width: 4rem;
+    &--remove {
+      @extend .has-text-danger;
+    }
   }
 }
 
