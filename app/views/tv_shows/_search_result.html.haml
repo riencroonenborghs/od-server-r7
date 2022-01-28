@@ -1,0 +1,18 @@
+- tv_show = search_result["tv_show"]
+.card
+  .card-content(style="background: url(\"#{tv_show.images["original"]}\");")
+    .is-flex
+      -#.card-image
+        .image
+          = image_tag tv_show.images["medium"] if tv_show.images
+      .card-content.is-flex.is-flex-direction-column.is-justify-content-space-between
+        %div
+          .title
+            = tv_show.name
+          .subtitle
+            - tv_show.genres.each do |genre|
+              %span.tag.is-primary
+                = genre
+          =raw clean_summary(tv_show.summary)
+        %div.is-flex.is-justify-content-flex-end
+          %button.button.is-primary Follow

@@ -13,4 +13,5 @@ class User < ApplicationRecord
   has_many :wget_downloads, dependent: :destroy, class_name: "WgetDownload"
 
   has_many :searches, dependent: :destroy
+  has_many :tv_shows, class_name: "TvMaze::TvShow", dependent: :destroy
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_220937) do
+ActiveRecord::Schema.define(version: 2022_01_23_222235) do
 
   create_table "downloads", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -46,6 +46,20 @@ ActiveRecord::Schema.define(version: 2021_12_27_220937) do
     t.index ["user_id"], name: "index_searches_on_user_id"
   end
 
+  create_table "tv_maze_tv_shows", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "tv_show_id", null: false
+    t.string "name", null: false
+    t.string "genres", null: false
+    t.string "status", null: false
+    t.float "rating", null: false
+    t.string "images", null: false
+    t.text "summary", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tv_maze_tv_shows_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -62,4 +76,5 @@ ActiveRecord::Schema.define(version: 2021_12_27_220937) do
 
   add_foreign_key "downloads", "users"
   add_foreign_key "searches", "users"
+  add_foreign_key "tv_maze_tv_shows", "users"
 end

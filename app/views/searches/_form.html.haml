@@ -4,7 +4,7 @@
       .field
         = form.label :query, class: "label"
         .control.is-flex
-          = form.text_field :query, class: "input", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
+          = form.text_field :query, placeholder: "Aliens 1986", class: "input", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
           = link_to "#", class: "p-2", data: { action: "click->search#searchClicked" } do
             = fa_solid "search"
           %button(type="submit" class="button is-primary")

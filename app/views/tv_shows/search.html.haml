@@ -1,0 +1,31 @@
+- content_for :title do
+  Search TV Shows
+
+.pt-2.mr-4.pr-4.tv-shows
+  .title TV Shows
+  .subtitle Search TV Shows
+
+  = form_with(scope: :search, url: search_tv_shows_path, method: :post) do |form|
+    .columns
+      .column
+        .field
+          = form.label :query, class: "label"
+          .control.is-flex
+            = form.text_field :query, class: "input", placeholder: "e.g. Regular Show", autofocus: true, value: @query
+    .columns
+    .column.is-one-third
+      = form.submit "Search", class: "button is-primary"
+
+  .pt-4.subtitle
+    Found
+    = pluralize(@search_results.count, "result")
+
+  - unless @search_results.size.zero?
+    .pt-2
+      .tile.is-parent
+        - @search_results.in_groups_of((@search_results.size / 2.to_f).ceil).each do |group|
+          .tile.is-vertical.is-child.is-parent
+            - group.compact.each do |search_result|
+              .tile.is-child.m-2
+                = render "/tv_shows/search_result", search_result: search_result
+

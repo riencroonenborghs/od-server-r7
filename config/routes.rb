@@ -22,7 +22,15 @@ Rails.application.routes.draw do
     end
 
     resources :searches, only: [:index, :new, :create, :destroy]
+
+    resources :tv_shows, only: [:index] do
+      collection do
+        get :search
+        post :search
+      end
+    end
   end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -14,7 +14,7 @@
       .field
         = form.label :url, "URL", class: "label"
         .control
-          = form.text_field :url, type: "url", class: "input #{"is-danger" if download.errors[:url].any?}", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }, autofocus: true
+          = form.text_field :url, type: "url", placeholder: "http://some.url.goes.here", class: "input #{"is-danger" if download.errors[:url].any?}", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }, autofocus: true
           - if download.errors[:url].any?
             .has-text-danger=download.errors[:url].join(", ")
       
