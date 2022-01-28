@@ -17,7 +17,11 @@
         %tr
           %td.downloads--icons=download_icon(download)
           %td
-            = link_to download.url, download.url, target: "_blank"
+            = link_to download.url, target: "_blank" do
+              - if download.url.length > 150
+                = download.url.first(150) + " ..."
+              - else
+                = download.url
             %br
             = render partial: "tags", locals: { download: download }
           %td=download.created_at.to_s(:timestamp)
