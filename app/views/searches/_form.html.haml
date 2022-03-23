@@ -1,32 +1,25 @@
 = form_with(scope: :search, url: searches_path, method: :post) do |form|
-  .columns
-    .column
-      .field
-        = form.label :query, class: "label"
-        .control.is-flex
-          = form.text_field :query, placeholder: "Aliens 1986", class: "input", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
-          = link_to "#", class: "p-2", data: { action: "click->search#searchClicked" } do
-            = fa_solid "search"
-          %button(type="submit" class="button is-primary")
-            = fa_solid "save"
+  .row.mb-3
+    .col-10
+      -# = form.label :query, class: "form-label"
+      = form.text_field :query, placeholder: "Aliens 1986", class: "form-control", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
+    .col-2
+      = link_to "#", class: "p-2", data: { action: "click->search#searchClicked" } do
+        = fa_solid "search", size: 1
+        Search
+      %button(type="submit" class="btn btn-primary")
+        = fa_solid "save", size: 1
+        Save
 
-  .columns
-    .column.is-2
-      .field
-        = form.label :query_type, "Type", class: "label"
-        .control
-          .select
-            = form.select :query_type, query_types, {}, { data: { "search-target" => "queryType", action: "change->search#queryTypeChanged" }, class: "form-select" }
-    .column.is-2(style="padding-top: 48px;")
-      .field
-        .control
-          = form.check_box :alternative, { class: "form-check-input", data: { "search-target" => "alternative", action: "change->search#alternativeChanged" } }
-          = form.label :alternative, class: "form-check-label"
-    .column.is-2(style="padding-top: 48px;")
-      .field
-        .control
-          = form.check_box :quoted, { class: "form-check-input", data: { "search-target" => "quoted", action: "change->search#quotedChanged" } }
-          = form.label :quoted, class: "form-check-label"
+  .row
+    .col-2
+      = form.select :query_type, query_types, {}, { data: { "search-target" => "queryType", action: "change->search#queryTypeChanged" }, class: "form-select" }
+    .col-2.pt-2
+      = form.check_box :alternative, { class: "form-check-input", data: { "search-target" => "alternative", action: "change->search#alternativeChanged" } }
+      = form.label :alternative, class: "form-check-label"
+    .col-2.pt-2
+      = form.check_box :quoted, { class: "form-check-input", data: { "search-target" => "quoted", action: "change->search#quotedChanged" } }
+      = form.label :quoted, class: "form-check-label"
 
-  .columns
-    .column.search--url.pt-1.pb-1.mb-4.is-hidden(data-search-target="url")
+  .row.pt-4
+    .col-10.p-2.rounded.fs-11.bg-light.search--url.d-none(data-search-target="url")

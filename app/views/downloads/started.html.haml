@@ -1,29 +1,6 @@
 - content_for :title do
   Started Downloads
 
-.pt-2.mr-4.pr-4.downloads.downloads--started
-  .title Downloads
-  .subtitle Started Downloads
-
-  %table.table.is-narrow.is-hoverable.is-fullwidth
-    %thead
-      %tr
-        %th.downloads--icon
-        %th URL
-        %th.downloads--timestamp Queued
-        %th.downloads--timestamp Started
-    %tbody
-      - @downloads.each do |download|
-        %tr
-          %td.downloads--icons=download_icon(download)
-          %td
-            = link_to download.url, target: "_blank" do
-              - if download.url.length > 150
-                = download.url.first(150) + " ..."
-              - else
-                = download.url
-            %br
-            = render partial: "tags", locals: { download: download }
-          %td=download.created_at.to_s(:timestamp)
-          %td=download.started_at.to_s(:timestamp)
-          
+.downloads.downloads--started
+  = breadcrumb("Downloads", "Started Downloads")
+  = render "table", table: { queued: true, started: true }, action: { }

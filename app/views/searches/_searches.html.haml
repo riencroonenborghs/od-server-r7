@@ -1,21 +1,21 @@
-%table.table.is-narrow.is-hoverable.is-fullwidth.mt-4
+%table.table.table-hover.table-fullwidth.mt-4
   %thead
     %tr
       %th
-      %th Query
-      %th Alternative?
-      %th Quoted?
+      %th
+      %th A?
+      %th Q?
   %tbody
     - searches.each do |search|
       - next unless search.persisted?
       %tr
         %td.searches--icons
-          .is-flex
+          .d-flex
             .pt-2
               = query_type_icon(search)
-            %div.button.is-white.has-text-primary(data-controller="searches" data-searches-search="#{search.as_json.to_json}" data-action="click->searches#searchClicked")
+            .btn.text-primary(data-controller="searches" data-searches-search="#{search.as_json.to_json}" data-action="click->searches#searchClicked")
               = fa_solid "play", size: 1
-            = button_to search_path(search), method: :delete, title: "Remove", class: "button is-white has-text-danger" do
+            = button_to search_path(search), method: :delete, title: "Remove", class: "btn text-danger" do
               = fa_solid "trash", size: 1
         %td
           .pt-2

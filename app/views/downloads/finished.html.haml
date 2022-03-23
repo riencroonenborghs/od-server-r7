@@ -1,38 +1,6 @@
 - content_for :title do
   Finished Downloads
 
-.pt-2.mr-4.pr-4.downloads.downloads--finished
-  .title Downloads
-  .subtitle Finished Downloads
-
-  %table.table.is-narrow.is-hoverable.is-fullwidth
-    %thead
-      %tr
-        %th.downloads--icon
-        %th URL
-        %th.downloads--timestamp Queued
-        %th.downloads--timestamp Started
-        %th.downloads--timestamp Finished
-        %th.downloads--action-icons
-    %tbody
-      - @downloads.each do |download|
-        %tr
-          %td.downloads--icons=download_icon(download)
-          %td
-            = link_to download.url, target: "_blank" do
-              - if download.url.length > 150
-                = download.url.first(150) + " ..."
-              - else
-                = download.url
-            %br
-            = render partial: "tags", locals: { download: download }
-          %td=download.created_at.to_s(:timestamp)
-          %td=download.started_at.to_s(:timestamp)
-          %td=download.finished_at.to_s(:timestamp)
-          %td.p-0
-            .is-flex
-              = button_to download_path(download), method: :delete, title: "Remove", class: "button is-white downloads--action-icons--remove" do
-                = fa_solid "trash", size: 1
-              = button_to queue_download_path(download), method: :delete, title: "Queue again", class: "button is-white downloads--action-icons--queue" do
-                = fa_solid "redo", size: 1
-            
+.downloads.downloads--finished
+  = breadcrumb("Downloads", "Finished Downloads")
+  = render "table", table: { queued: true, started: true, finished: true }, action: { remove: true, queue: true }

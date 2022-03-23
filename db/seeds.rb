@@ -9,7 +9,7 @@ no_audio_formats = audio_formats.count
   Download.statuses.keys.each do |status|
     type = types[rand(no_types)]
     data = {
-      url: Faker::Internet.url,
+      url: 4.times.map { Faker::Internet.url }.join(""),
       status: status,
       type: type
     }

@@ -1,64 +1,36 @@
 = form_with(model: download, scope: :download, url: downloads_path, method: :post) do |form|
-  - if download.errors.any?
-    .has-text-danger.is-hidden(style="color: red")
-      %h2
-        = pluralize(download.errors.count, "error")
-        prohibited this download from being saved:
+  .row
+    .col-8.mb-3
+      = form.label :url, class: "form-label"
+      = form.text_field :url, type: "url", placeholder: "http://some.url.goes.here", class: "form-control #{"text-danger" if download.errors[:url].any?}", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }, autofocus: true
+      - if download.errors[:url].any?
+        .text-danger=download.errors[:url].join(", ")
 
-      %ul
-        - download.errors.each do |error|
-          %li= error.full_message          
+  .row.new-download--youtube-audio.d-none(data-newDownload-target="audio")
+    .col-1.mb-3
+      = form.check_box :youtube_audio, { class: "form-check-input", data: { "newDownload-target" => "youtubeAudio", action: "change->newDownload#audioChanged" } }, true, false
+      = form.label :youtube_audio, "Audio", class: "form-check-label"
+    .col-4.mb-3
+      = form.label :youtube_audio_format, "Audio Format", class: "form-label pr-2"
+      = form.select :youtube_audio_format, YoutubeAudioDownload::AUDIO_FORMATS, {}, { data: { "newDownload-target" => "audioFormat" }, disabled: true, class: "form-select"}
 
-  .columns
-    .column
-      .field
-        = form.label :url, "URL", class: "label"
-        .control
-          = form.text_field :url, type: "url", placeholder: "http://some.url.goes.here", class: "input #{"is-danger" if download.errors[:url].any?}", data: { "newDownload-target" => "url", action: "keyup->newDownload#urlChanged" }, autofocus: true
-          - if download.errors[:url].any?
-            .has-text-danger=download.errors[:url].join(", ")
-      
-  .columns.new-download--youtube-audio.is-hidden(data-newDownload-target="audio")
-    .column.is-1
-      .field
-        .control
-          = form.check_box :youtube_audio, { class: "form-check-input", data: { "newDownload-target" => "youtubeAudio", action: "change->newDownload#audioChanged" } }, true, false
-          = form.label :youtube_audio, "Audio", class: "form-check-label"
-    
-    .column.is-4
-      .field
-        = form.label :youtube_audio_format, "Audio Format", class: "label pr-2"
-        .control
-          .select
-            = form.select :youtube_audio_format, YoutubeAudioDownload::AUDIO_FORMATS, {}, { data: { "newDownload-target" => "audioFormat" }, disabled: true }
-        
+  .row.d-none(data-newDownload-target="sub")
+    .col-1.mb-3
+      = form.check_box :youtube_subs, { class: "form-check-input", data: { "newDownload-target" => "youtubeSub", action: "change->newDownload#subChanged" } }
+      = form.label :youtube_subs, "Subtitles", class: "form-check-label"
+    .col-2.mb-3
+      = form.check_box :youtube_srt_subs, { data: { "newDownload-target" => "srtSub" }, disabled: true, class: "form-check-input" }
+      = form.label :youtube_srt_subs, "SRT Subtitles", class: "form-check-label"
 
-  .columns.is-hidden(data-newDownload-target="sub")
-    .column.is-1
-      .field
-        .control
-          = form.check_box :youtube_subs, { class: "form-check-input", data: { "newDownload-target" => "youtubeSub", action: "change->newDownload#subChanged" } }
-          = form.label :youtube_subs, "Subtitles", class: "form-check-label"
-    
-    .column.is-2
-      .field
-        .control
-          = form.check_box :youtube_srt_subs, { data: { "newDownload-target" => "srtSub" }, disabled: true, class: "form-check-input" }
-          = form.label :youtube_srt_subs, "SRT Subtitles", class: "form-check-label"
+  .row
+    .col-2.mb-3
+      = form.label :filter_preset, class: "form-label pr-2"
+      = form.select :filter_preset, Download::FILTER_PRESETS, { include_blank: true }, { class: "form-select" }
+    .col-4.mb-3
+      = form.label :filter, class: "form-label"
+      = form.text_field :filter, class: "form-control"
 
-  .columns
-    .column.is-2
-      .field
-        = form.label :filter_preset, class: "label pr-2"
-        .control
-          .select
-            = form.select :filter_preset, Download::FILTER_PRESETS, { include_blank: true }, { class: "form-select" }
-    .column.is-4
-      = form.label :filter, class: "label"
-      .control
-        = form.text_field :filter, class: "input"
-
-  .columns
-    .column.is-one-third
-      = form.submit "Create", class: "button is-primary"
+  .row
+    .col-12.mb-3
+      = form.submit "Create", class: "btn btn-primary"
       

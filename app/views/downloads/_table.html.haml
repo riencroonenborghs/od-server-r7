@@ -1,0 +1,46 @@
+%table.table.table-hover.w-100
+  %thead
+    %tr
+      %th.downloads--icon
+      %th URL
+      - if table[:queued]
+        %th.downloads--timestamp Q
+      - if table[:cancelled]
+        %th.downloads--timestamp C
+      - if table[:failed]
+        %th.downloads--timestamp F
+      - if table[:started]
+        %th.downloads--timestamp S
+      - if table[:finished]
+        %th.downloads--timestamp F
+      - if action.values.any?
+        %th.downloads--action-icons
+  %tbody
+    - @downloads.each do |download|
+      %tr
+        %td.downloads--icons=download_icon(download)
+        %td
+          .downloads--url
+            = link_to download.url, target: "_blank" do
+              = download.url
+          = render partial: "tags", locals: { download: download }
+        - if table[:queued]
+          %td.fs-10=download.created_at.to_s(:timestamp)
+        - if table[:cancelled]
+          %td.fs-10=download.cancelled_at.to_s(:timestamp)
+        - if table[:failed]
+          %td.fs-10=download.failed_at.to_s(:timestamp)
+        - if table[:started]
+          %td.fs-10=download.started_at.to_s(:timestamp)
+        - if table[:finished]
+          %td.fs-10=download.finished_at.to_s(:timestamp)
+        - if action.values.any?
+          %td.p-0
+            .d-flex
+              - if action[:remove]
+                = button_to download_path(download), method: :delete, title: "Remove", class: "btn text-danger" do
+                  = fa_solid "trash", size: 1
+              - if action[:queue]
+                = button_to queue_download_path(download), title: "Queue again", class: "btn text-primary" do
+                  = fa_solid "redo", size: 1
+              

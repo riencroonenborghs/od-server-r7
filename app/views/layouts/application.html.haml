@@ -14,12 +14,7 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
   %body(id="#{'user' if user_signed_in?}")
-    .columns
-      .column.is-1
-        = render "/layouts/menu"
-      .column
-        = yield
-
+    = render "/layouts/navbar"
     = render partial: "/layouts/flash_messages"
 
     

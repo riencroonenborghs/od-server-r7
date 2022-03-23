@@ -6,11 +6,11 @@ export default class extends Controller {
   urlChanged () {
     const url = this.urlTarget.value;
     if (url.match(/youtube\.com|youtu\.be/)) {
-      this.audioTarget.classList.remove("is-hidden");
-      this.subTarget.classList.remove("is-hidden");
+      this.audioTarget.classList.remove("d-none");
+      this.subTarget.classList.remove("d-none");
     } else {
-      this.audioTarget.classList.add("is-hidden");
-      this.subTarget.classList.add("is-hidden");
+      this.audioTarget.classList.add("d-none");
+      this.subTarget.classList.add("d-none");
     }
   }
 

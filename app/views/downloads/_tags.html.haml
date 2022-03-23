@@ -1,17 +1,17 @@
 - if download.is_a? WgetDownload
   - if download.filter.present?
-    %span.tag.is-primary.is-size-8
+    %span.badge.rounded-pill.bg-primary.fs-11
       = download.filter
   - if download.http_auth?
-    %span.tag.is-link.is-size-8
+    %span.badge.rounded-pill.bg-info.fs-11
       HTTP Auth
 - elsif download.is_a? YoutubeAudioDownload
-  %span.tag.is-info.is-size-8
+  %span.badge.rounded-pill.bg-secondary.fs-11
     = download.youtube_audio_format
 - elsif download.is_a? YoutubeVideoDownload
   - if download.youtube_subs
-    %span.tag.is-success.is-size-8
+    %span.badge.rounded-pill.bg-warning.fs-11
       Subs
   - if download.youtube_srt_subs
-    %span.tag.is-warning.is-size-8
+    %span.badge.rounded-pill.bg-success.fs-11
       SRT Subs

@@ -1,9 +1,8 @@
 - content_for :title do
   Search
 
-.pt-2.mr-4.pr-4.new-download(data-controller="search")
-  .title Search
-
+.downloads.search(data-controller="search")
+  = breadcrumb("Search")
   = render "form"
-    
-  = render partial: "searches", locals: { searches: @searches }
+  = render "searches", searches: @searches
+  

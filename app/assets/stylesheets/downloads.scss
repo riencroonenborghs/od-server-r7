@@ -3,7 +3,7 @@
     width: 4rem;
   }
   &--timestamp {
-    width: 10rem;
+    width: 6.5rem;
   }
   &--icons {
     .fa-download {
@@ -20,10 +20,13 @@
     }    
   }
   &--action-icons {
-    width: 4rem;
-    &--remove {
-      @extend .has-text-danger;
-    }
+    width: 6rem;
+  }
+  &--url {
+    white-space: nowrap;
+    width: calc(100vw - 35rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

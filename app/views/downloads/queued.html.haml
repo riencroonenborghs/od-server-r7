@@ -1,30 +1,6 @@
 - content_for :title do
   Queued Downloads
 
-.pt-2.mr-4.pr-4.downloads.downloads--queued
-  .title Downloads
-  .subtitle Queued Downloads
-
-  %table.table.is-narrow.is-hoverable.is-fullwidth
-    %thead
-      %tr
-        %th.downloads--icon
-        %th URL
-        %th.downloads--timestamp Queued
-        %th.downloads--action-icons
-    %tbody
-      - @downloads.each do |download|
-        %tr
-          %td.downloads--icons=download_icon(download)
-          %td
-            = link_to download.url, target: "_blank" do
-              - if download.url.length > 150
-                = download.url.first(150) + " ..."
-              - else
-                = download.url
-            %br
-            = render partial: "tags", locals: { download: download }
-          %td=download.created_at.to_s(:timestamp)
-          %td.downloads--action-icons.p-0
-            = button_to download_path(download), method: :delete, title: "Remove", class: "button is-white downloads--action-icons--remove" do
-              = fa_solid "trash", size: 1
+.downloads.downloads--queued
+  = breadcrumb("Downloads", "Queued Downloads")
+  = render "table", table: { queued: true }, action: { remove: true }
