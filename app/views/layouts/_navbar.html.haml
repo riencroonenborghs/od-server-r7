@@ -31,7 +31,7 @@
             = fa_solid "lock", size: 2
       - else
         %li.nav-item
-          = link_to new_user_session_path, title: "Log in", class: "nav-link #{'active' if active_page?(new_user_session_path)}" do
+          = link_to new_user_session_path, title: "Log in", class: "nav-link #{'active' if current_page?(new_user_session_path)}" do
             = fa_solid "lock-open", size: 2
   .content.p-4(style="width: calc(100vw - 75px); position: relative; left: 75px;")
     = yield
