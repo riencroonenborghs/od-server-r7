@@ -7,7 +7,7 @@ class YoutubeVideoDownload < Download
 
   def command_options
     [].tap do |options|
-      options << "--write-sub" if youtube_subs || youtube_srt_subs
+      options << "--write-subs" if youtube_subs || youtube_srt_subs
       options << "--convert-subs srt" if youtube_srt_subs
     end
   end
