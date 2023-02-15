@@ -1,4 +1,6 @@
-class CreateSearch < AppService
+class CreateSearch
+  include Base
+
   attr_reader :user, :params, :search
   
   def initialize(user:, params:)
@@ -6,7 +8,7 @@ class CreateSearch < AppService
     @params = params
   end
 
-  def call
+  def perform
     parse_params
     create_search
   end

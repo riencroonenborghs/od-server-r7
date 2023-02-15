@@ -4,7 +4,7 @@ RSpec.describe CreateDownload do
   let(:user) { create :user }
   let(:youtube_audio_params) { {} }
   let(:youtube_video_params) { {} }
-  let(:subject) { described_class.call(user: user, params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
+  let(:subject) { described_class.perform(user: user, params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
 
   shared_examples "creates a download" do |klass|
     it "is a success" do
@@ -16,7 +16,7 @@ RSpec.describe CreateDownload do
     end
   end
 
-  describe ".call" do
+  describe ".perform" do
     context "when it's a bittorrent download" do
       let(:params) { { url: "magnet:somelongstringgoeshere" } }
 
@@ -35,7 +35,7 @@ RSpec.describe CreateDownload do
       it_behaves_like "creates a download", ReleasedDotTvDownload
 
       it "sets http authentication" do
-        subject.call
+        subject.perform
         download = subject.download
         expect(download.http_username).to_not be_nil
         expect(download.http_password).to_not be_nil
@@ -64,7 +64,7 @@ RSpec.describe CreateDownload do
         let(:params) { { url: "https://foo.bar.com/baz.olaf", filter_preset: "foobarbaz" } }
 
         it "handles the filter preset" do
-          subject.call
+          subject.perform
           expect(subject.download.filter).to eq "*foobarbaz*"
         end
       end

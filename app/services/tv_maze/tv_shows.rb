@@ -1,5 +1,7 @@
 module TvMaze
-  class TvShows < AppService
+  class TvShows
+    include Base
+
     def initialize(api_client = ApiClient.new)
       @api_client = api_client
     end

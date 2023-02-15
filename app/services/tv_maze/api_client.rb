@@ -1,5 +1,7 @@
 module TvMaze
-  class ApiClient < AppService
+  class ApiClient
+    include Base
+
     def initialize(url: "http://api.tvmaze.com/")
       @url = url
     end

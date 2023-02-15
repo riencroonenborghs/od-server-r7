@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
 
   # # POST /searches
   def create
-    service = CreateSearch.call(user: current_user, params: search_params)
+    service = CreateSearch.perform(user: current_user, params: search_params)
 
     if service.success?
       redirect_to new_search_path, notice: "Search was successfully created."

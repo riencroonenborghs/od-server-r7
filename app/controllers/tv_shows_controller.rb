@@ -53,7 +53,7 @@ class TvShowsController < ApplicationController
   # # end
 
   # def create
-  #   service = CreateDownload.call(
+  #   service = CreateDownload.perform(
   #     user: current_user,
   #     params: download_params,
   #     youtube_audio_params: youtube_audio_params,

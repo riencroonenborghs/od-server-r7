@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.0.0"
 
 gem "bootsnap", require: false
 gem "brakeman"
@@ -15,7 +15,7 @@ gem "httparty"
 gem "jsbundling-rails"
 gem "kaminari"
 gem "mina"
-gem "pg"
+# gem "pg", "1.3.2"
 gem "puma", "~> 5.0"
 gem "rubocop"
 gem "rails", "~> 7.0.0"

@@ -1,4 +1,6 @@
-class CreateDownload < AppService
+class CreateDownload
+  include Base
+
   attr_reader :user, :params, :youtube_audio_params, :youtube_video_params, :download
 
   def initialize(user:, params:, youtube_audio_params:, youtube_video_params:)
@@ -8,7 +10,7 @@ class CreateDownload < AppService
     @youtube_video_params = youtube_video_params.to_h
   end
 
-  def call
+  def perform
     build_download
     return unless download
 

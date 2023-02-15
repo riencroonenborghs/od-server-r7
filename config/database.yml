@@ -21,10 +21,15 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: <%= ENV['PRODUCTION_DATABASE'] %>
-  pool: 5
-  username: <%= ENV['PRODUCTION_USERNAME'] %>
-  password: <%= ENV['PRODUCTION_PASSWORD'] %>
+  <<: *default
+  database: db/production.sqlite3
+
+
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: <%= ENV['PRODUCTION_DATABASE'] %>
+#   pool: 5
+#   username: <%= ENV['PRODUCTION_USERNAME'] %>
+#   password: <%= ENV['PRODUCTION_PASSWORD'] %>
   
