@@ -1,4 +1,4 @@
-user = User.create!(email: "rien@croonenborghs.net", password: ENV["PASSWORD"], password_confirmation: ENV["PASSWORD"])
+user = User.create!(email: "rien@croonenborghs.net", password: ENV.fetch("PASSWORD"), password_confirmation: ENV.fetch("PASSWORD"))
 
 types=[WgetDownload, GoogleDriveDownload, ReleasedDotTvDownload, YoutubeAudioDownload, YoutubeVideoDownload]
 no_types = types.count

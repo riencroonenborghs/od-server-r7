@@ -15,7 +15,7 @@ Makes use of basic open source tools to download data from various sources:
 To get the full benefit, you will need:
   - [wget](https://www.gnu.org/software/wget/)
   - [gdl](https://github.com/Akianonymus/gdrive-downloader) (gdrive-downloader)
-  - [transmission-cli](https://transmissionbt.com/)
+  - [deluge](https://deluge-torrent.org/) and `deluge-console`
   - [youtube-dl](https://youtube-dl.org/)
 
 ### Rails things

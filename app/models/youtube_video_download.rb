@@ -2,7 +2,7 @@ class YoutubeVideoDownload < Download
   private
 
   def command
-    ENV["YOUTUBE_DL_PATH"]
+    ENV.fetch("YOUTUBE_DL_PATH")
   end
 
   def command_options
@@ -13,6 +13,6 @@ class YoutubeVideoDownload < Download
   end
 
   def command_output
-    "--continue --output \"#{ENV["OUTPUT_PATH"]}/%(title)s-%(id)s.%(ext)s\""
+    "--continue --output \"#{ENV.fetch("OUTPUT_PATH")}/%(title)s-%(id)s.%(ext)s\""
   end
 end

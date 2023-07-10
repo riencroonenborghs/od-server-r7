@@ -62,8 +62,8 @@ class CreateDownload
                 elsif released_dot_tv?
                   user.released_dot_tv_downloads.build(
                     released_dot_tv_params.update(
-                      http_username: ENV["RELEASED_DOT_TV_USERNAME"],
-                      http_password: ENV["RELEASED_DOT_TV_PASSWORD"]
+                      http_username: ENV.fetch("RELEASED_DOT_TV_USERNAME"),
+                      http_password: ENV.fetch("RELEASED_DOT_TV_PASSWORD")
                     )
                   )
                 elsif youtube_audio? 

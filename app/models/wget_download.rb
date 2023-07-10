@@ -2,7 +2,7 @@ class WgetDownload < Download
   private
 
   def command
-    ENV["WGET_PATH"]
+    ENV.fetch("WGET_PATH")
   end
 
   def command_options
@@ -15,6 +15,6 @@ class WgetDownload < Download
   end
 
   def command_output
-    "--directory-prefix=\"#{ENV["OUTPUT_PATH"]}\""
+    "--directory-prefix=\"#{ENV.fetch("OUTPUT_PATH")}\""
   end
 end

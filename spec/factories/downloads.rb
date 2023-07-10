@@ -15,8 +15,8 @@ FactoryBot.define do
     user
     type { "ReleasedDotTvDownload" }
     url { "http://released.tv/files/foo/bar.baz" }
-    http_username { ENV["RELEASED_DOT_TV_USERNAME"] }
-    http_password { ENV["RELEASED_DOT_TV_PASSWORD"] }
+    http_username { ENV.fetch("RELEASED_DOT_TV_USERNAME") }
+    http_password { ENV.fetch("RELEASED_DOT_TV_PASSWORD") }
   end
 
   factory :youtube_audio_download do

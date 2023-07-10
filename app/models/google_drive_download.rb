@@ -2,7 +2,7 @@ class GoogleDriveDownload < Download
   private
 
   def command
-    ENV["GDL_PATH"]
+    ENV.fetch("GDL_PATH")
   end
 
   def command_options
@@ -10,6 +10,6 @@ class GoogleDriveDownload < Download
   end
 
   def command_output
-    "--directory \"#{ENV["OUTPUT_PATH"]}\""
+    "--directory \"#{ENV.fetch("OUTPUT_PATH")}\""
   end
 end
