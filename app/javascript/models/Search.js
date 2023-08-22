@@ -17,13 +17,9 @@ export class Search {
   get incognito () { return this._incognito }
   set incognito (incognito) { this._incognito = incognito }
 
-  // enum query_type: { movies: 0, tpb: 1, rarbg: 2, youtube: 3, music: 4, books: 5, mac_software: 6, general: 7 }
+  // enum query_type: { movies: 0, tpb: 1, youtube: 3, music: 4, books: 5, mac_software: 6, general: 7 }
   get tpb () {
     return this.queryType == 1
-  }
-
-  get rarbg () {
-    return this.queryType == 2
   }
 
   get youtube () {
@@ -31,6 +27,6 @@ export class Search {
   }
 
   get google () {
-    return !this.tpb && !this.rarbg && !this.youtube
+    return !this.tpb && !this.youtube
   }
 }
