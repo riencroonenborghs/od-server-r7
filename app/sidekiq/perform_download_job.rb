@@ -1,8 +1,10 @@
-class DownloadJob < ApplicationJob
-  queue_as :default
+class PerformDownloadJob
+  include Sidekiq::Job
 
-  def perform(download_id)
-    @download = Download.find(download_id)
+  def perform(args)
+    parsed = JSON.parse(args)
+
+    @download = Download.find(parsed["download_id"])
     return unless download
 
     prep_output_path

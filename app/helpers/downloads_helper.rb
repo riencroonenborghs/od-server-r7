@@ -6,9 +6,11 @@ module DownloadsHelper
     when BittorrentDownload
       fa_solid "cloud-download-alt", size: 1
     when YoutubeAudioDownload
-      fa_brands("youtube", size: 1).concat(fa_solid("music", size: 1))
+      fa_brands("youtube", size: 1)
+      fa_solid("music", size: 1, classes: "ps-2")
     when YoutubeVideoDownload
-      fa_brands("youtube", size: 1).concat(fa_solid("film", size: 1))
+      fa_brands("youtube", size: 1) +
+      fa_solid("film", size: 1, classes: "ps-2")
     when ReleasedDotTvDownload
       fa_solid "tv", size: 1
     else

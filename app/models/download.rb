@@ -43,7 +43,8 @@ class Download < ApplicationRecord
   def queue!
     queued!
     update!(started_at: nil, finished_at: nil, cancelled_at: nil, failed_at: nil)
-    DownloadJob.perform_later(id)
+
+    PerformDownloadJob.perform_async({ download_id: id }.to_json)
   end
 
   private

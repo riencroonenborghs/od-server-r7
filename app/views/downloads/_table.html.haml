@@ -25,15 +25,15 @@
               = download.url
           = render partial: "tags", locals: { download: download }
         - if table[:queued]
-          %td.fs-10=download.created_at.to_s(:timestamp)
+          %td.fs-10=download.created_at.to_formatted_s(:timestamp)
         - if table[:cancelled]
-          %td.fs-10=download.cancelled_at.to_s(:timestamp)
+          %td.fs-10=download.cancelled_at.to_formatted_s(:timestamp)
         - if table[:failed]
-          %td.fs-10=download.failed_at.to_s(:timestamp)
+          %td.fs-10=download.failed_at.to_formatted_s(:timestamp)
         - if table[:started]
-          %td.fs-10=download.started_at.to_s(:timestamp)
+          %td.fs-10=download.started_at.to_formatted_s(:timestamp)
         - if table[:finished]
-          %td.fs-10=download.finished_at.to_s(:timestamp)
+          %td.fs-10=download.finished_at.to_formatted_s(:timestamp)
         - if action.values.any?
           %td.p-0
             .d-flex

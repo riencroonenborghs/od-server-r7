@@ -100,6 +100,6 @@ class CreateDownload
   end
 
   def queue_download
-    DownloadJob.perform_later(download.id)
+    PerformDownloadJob.perform_async({ download_id: download.id }.to_json)
   end
 end
