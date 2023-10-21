@@ -1,6 +1,4 @@
-user = User.create!(email: "rien@croonenborghs.net", password: ENV.fetch("PASSWORD"), password_confirmation: ENV.fetch("PASSWORD"))
-
-types=[WgetDownload, GoogleDriveDownload, ReleasedDotTvDownload, YoutubeAudioDownload, YoutubeVideoDownload]
+types=[WgetDownload, ReleasedDotTvDownload, YoutubeAudioDownload, YoutubeVideoDownload]
 no_types = types.count
 audio_formats = ["best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", "wav"]
 no_audio_formats = audio_formats.count
@@ -63,6 +61,6 @@ no_audio_formats = audio_formats.count
       end
     end
 
-    user.downloads.create! data
+    Download.create! data
   end
 end

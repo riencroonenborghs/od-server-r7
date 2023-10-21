@@ -13,7 +13,7 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
-  %body(id="#{'user' if user_signed_in?}")
+  %body
     = render "/layouts/navbar"
     = render partial: "/layouts/flash_messages"
 

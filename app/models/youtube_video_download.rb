@@ -2,7 +2,7 @@ class YoutubeVideoDownload < Download
   private
 
   def command
-    ENV.fetch("YOUTUBE_DL_PATH")
+    ENV.fetch("YTDLP_DL_PATH")
   end
 
   def command_options

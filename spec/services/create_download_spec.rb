@@ -1,10 +1,9 @@
 require "rails_helper"
 
 RSpec.describe CreateDownload do
-  let(:user) { create :user }
   let(:youtube_audio_params) { {} }
   let(:youtube_video_params) { {} }
-  let(:subject) { described_class.perform(user: user, params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
+  let(:subject) { described_class.perform(params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
 
   shared_examples "creates a download" do |klass|
     it "is a success" do
@@ -21,12 +20,6 @@ RSpec.describe CreateDownload do
       let(:params) { { url: "magnet:somelongstringgoeshere" } }
 
       it_behaves_like "creates a download", BittorrentDownload
-    end
-
-    context "when it's a google drive download" do
-      let(:params) { { url: "https://drive.google.com/file/d/1foobarbaz/view?usp=sharing" } }
-
-      it_behaves_like "creates a download", GoogleDriveDownload
     end
 
     context "when it's a released.tv download" do

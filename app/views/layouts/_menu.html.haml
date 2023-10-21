@@ -1,40 +1,26 @@
 %aside.menu
   %ul.menu-list
     .is-flex.is-flex-direction-column.is-justify-content-space-between.is-align-items-center
-      - if user_signed_in?
-        %div
+      %div
+        %li
+          = link_to queued_downloads_path, title: "Queued Downloads", class: "#{'is-active' if current_page?(queued_downloads_path)}" do
+            = fa_solid "list"
+            %span.tag.is-complementary
+              = queue_sizes["queued"] || 0
+        - download_types.each do |download_type|
           %li
-            = link_to queued_downloads_path, title: "Queued Downloads", class: "#{'is-active' if current_page?(queued_downloads_path)}" do
-              = fa_solid "list"
+            = link_to download_type.path, title: download_type.title, class: "#{'is-active' if current_page?(download_type.path)}" do
+              = fa_solid download_type.icon
               %span.tag.is-complementary
-                = queue_sizes["queued"] || 0
-          - download_types.each do |download_type|
-            %li
-              = link_to download_type.path, title: download_type.title, class: "#{'is-active' if current_page?(download_type.path)}" do
-                = fa_solid download_type.icon
-                %span.tag.is-complementary
-                  = queue_sizes[download_type.queue_type] || 0          
-        %div(style="width: 100%")
-          %li
-            = link_to new_download_path, title: "New Download", class: "#{'is-active' if current_page?(new_download_path) || current_page?(root_path)}" do
-              = fa_solid "plus"
-          %li
-            = link_to new_search_path, title: "Search", class: "#{'is-active' if current_page?(new_search_path)}" do
-              = fa_solid "search"
-          -#%li
-            = link_to tv_shows_path, title: "TV Shows", class: "#{'is-active' if current_page?(tv_shows_path) || current_page?(search_tv_shows_path)}" do
-              = fa_solid "tv"
-          %li
-            = link_to "/sidekiq", title: "Sidekiq", target: "_blank" do
-              = image_tag "sidekiq.svg", width: 22
-            .ps-3.pe-3 &nbsp;
-          %li
-            = button_to destroy_user_session_path, method: :delete, title: "Log out", class: "button is-primary has-text-dark" do
-              = fa_solid "lock"
-      - else
-        %div
-        %div
-          %li
-            = link_to new_user_session_path, title: "Log in", class: "#{'is-active' if current_page?(new_user_session_path)}" do
-              = fa_solid "lock-open"
-              
+                = queue_sizes[download_type.queue_type] || 0          
+      %div(style="width: 100%")
+        %li
+          = link_to new_download_path, title: "New Download", class: "#{'is-active' if current_page?(new_download_path) || current_page?(root_path)}" do
+            = fa_solid "plus"
+        %li
+          = link_to new_search_path, title: "Search", class: "#{'is-active' if current_page?(new_search_path)}" do
+            = fa_solid "search"
+        %li
+          = link_to "/sidekiq", title: "Sidekiq", target: "_blank" do
+            = image_tag "sidekiq.svg", width: 22
+          .ps-3.pe-3 &nbsp;

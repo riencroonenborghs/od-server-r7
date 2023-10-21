@@ -3,8 +3,6 @@ module DownloadsHelper
     case download
     when WgetDownload
       fa_solid "download", size: 1
-    when GoogleDriveDownload
-      fa_brands "google-drive", size: 1
     when BittorrentDownload
       fa_solid "cloud-download-alt", size: 1
     when YoutubeAudioDownload

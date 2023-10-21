@@ -1,10 +1,9 @@
 class CreateSearch
   include Base
 
-  attr_reader :user, :params, :search
+  attr_reader :params, :search
   
-  def initialize(user:, params:)
-    @user = user
+  def initialize(params:)
     @params = params
   end
 
@@ -22,6 +21,6 @@ class CreateSearch
   end
 
   def create_search
-    @search = user.searches.create!(params)
+    @search = Search.create!(params)
   end
 end

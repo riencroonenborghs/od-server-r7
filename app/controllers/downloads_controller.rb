@@ -1,50 +1,34 @@
 class DownloadsController < ApplicationController
-  # before_action :set_download, only: %i[ show edit update destroy ]
-
   def index
     redirect_to new_download_path
   end
 
   def queued
-    @downloads = current_user.downloads.queued.most_recent_first
+    @downloads = Download.queued.most_recent_first
   end
 
   def started
-    @downloads = current_user.downloads.started.most_recent_first(:started_at)
+    @downloads = Download.started.most_recent_first(:started_at)
   end
 
   def finished
-    @downloads = current_user.downloads.finished.most_recent_first(:finished_at)
+    @downloads = Download.finished.most_recent_first(:finished_at)
   end
 
   def failed
-    @downloads = current_user.downloads.failed.most_recent_first(:failed_at)
+    @downloads = Download.failed.most_recent_first(:failed_at)
   end
 
   def cancelled
-    @downloads = current_user.downloads.cancelled.most_recent_first(:cancelled_at)
+    @downloads = Download.cancelled.most_recent_first(:cancelled_at)
   end
 
   def new
-    @download = current_user.downloads.build
+    @download = Download.new
   end
-
-  # # GET /downloads/1
-  # def show
-  # end
-
-  # # GET /downloads/new
-  # def new
-  #   @download = Download.new
-  # end
-
-  # # GET /downloads/1/edit
-  # def edit
-  # end
 
   def create
     service = CreateDownload.perform(
-      user: current_user,
       params: download_params,
       youtube_audio_params: youtube_audio_params,
       youtube_video_params: youtube_video_params
@@ -57,36 +41,22 @@ class DownloadsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  # # PATCH/PUT /downloads/1
-  # def update
-  #   if @download.update(download_params)
-  #     redirect_to @download, notice: "Download was successfully updated."
-  #   else
-  #     render :edit, status: :unprocessable_entity
-  #   end
-  # end
-
-  # # DELETE /downloads/1
+  
   def destroy
-    download = current_user.downloads.find params[:id]
+    download = Download.find params[:id]
     status = download.status
     download.destroy
     redirect_to send(:"#{status}_downloads_url"), notice: "Download was successfully removed."
   end
 
   def queue
-    download = current_user.downloads.find params[:id]
+    download = Download.find params[:id]
     download.queue!
     redirect_to downloads_url, notice: "Download was successfully queued again."
   end
-  private
-  #   # Use callbacks to share common setup or constraints between actions.
-  #   def set_download
-  #     @download = Download.find(params[:id])
-  #   end
 
-  #   # Only allow a list of trusted parameters through.
+  private
+
   def download_params
     params.require(:download).permit(:url, :filter_preset, :filter)
   end

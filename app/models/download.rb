@@ -1,9 +1,7 @@
 class Download < ApplicationRecord
   FILTER_PRESETS = %w[720 1080 Season1 Season2 Season3 Season4 Season5]
 
-  belongs_to :user
-
-  validates :user, :url, presence: true
+  validates :url, presence: true
 
   enum status: { queued: 0, started: 1, finished: 2, cancelled: 3, failed: 4 }
   

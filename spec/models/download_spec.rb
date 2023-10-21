@@ -15,7 +15,7 @@ RSpec.describe Download, type: :model do
     before do
       allow(ENV).to receive(:fetch).with("WGET_PATH").and_return("wget")
       allow(ENV).to receive(:fetch).with("GDL_PATH").and_return("gdl")
-      allow(ENV).to receive(:fetch).with("YOUTUBE_DL_PATH").and_return("youtube-dl")
+      allow(ENV).to receive(:fetch).with("YTDLP_DL_PATH").and_return("youtube-dl")
       allow(ENV).to receive(:fetch).with("DELUGE_CONSOLE_PATH").and_return("deluge-console")
       allow(ENV).to receive(:fetch).with("OUTPUT_PATH").and_return("output")
       allow(ENV).to receive(:fetch).with("RELEASED_DOT_TV_USERNAME").and_return("username")
@@ -28,13 +28,6 @@ RSpec.describe Download, type: :model do
       let(:expected_command) { "deluge-console add " }
 
       before { travel_to(datetime) }
-
-      it_behaves_like "builds the command"
-    end
-
-    context "when it's a google drive download" do
-      let(:download) { create :google_drive_download }
-      let(:expected_command) { "gdl --directory \"#{ENV.fetch("OUTPUT_PATH")}\"" }
 
       it_behaves_like "builds the command"
     end

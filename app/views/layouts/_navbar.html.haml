@@ -2,36 +2,27 @@
   %nav.navbar.border-end.border-secondary.flex-column.justify-content-between.position-fixed(style="width: 75px; height: calc(100vh);")
     -# ----- TOP -----
     %ul.navbar-nav      
-      - if user_signed_in?
+      %li.nav-item
+        = link_to queued_downloads_path, title: "Queued Downloads", class: "nav-link #{'active' if current_page?(queued_downloads_path)}" do
+          = fa_solid "list"
+          %span.badge.rounded-pill.position-absolute.fs-11(style="left: 10px;")
+            = queue_sizes["queued"] || 0
+      - download_types.each do |download_type|
         %li.nav-item
-          = link_to queued_downloads_path, title: "Queued Downloads", class: "nav-link #{'active' if current_page?(queued_downloads_path)}" do
-            = fa_solid "list"
+          = link_to download_type.path, title: download_type.title, class: "nav-link #{'active' if current_page?(download_type.path)}" do
+            = fa_solid download_type.icon
             %span.badge.rounded-pill.position-absolute.fs-11(style="left: 10px;")
-              = queue_sizes["queued"] || 0
-        - download_types.each do |download_type|
-          %li.nav-item
-            = link_to download_type.path, title: download_type.title, class: "nav-link #{'active' if current_page?(download_type.path)}" do
-              = fa_solid download_type.icon
-              %span.badge.rounded-pill.position-absolute.fs-11(style="left: 10px;")
-                = queue_sizes[download_type.queue_type] || 0
+              = queue_sizes[download_type.queue_type] || 0
     -# ----- BOTTOM -----
     %ul.navbar-nav
-      - if user_signed_in?
-        %li.nav-item
-          = link_to new_download_path, title: "New Download", class: "nav-link #{'active' if current_page?(new_download_path) || current_page?(root_path)}" do
-            = fa_solid "plus"
-        %li.nav-item
-          = link_to new_search_path, title: "Search", class: "nav-link #{'active' if current_page?(new_search_path)}" do
-            = fa_solid "search"
-        %li.nav-item
-          = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "nav-link" do
-            = fa_solid "sync"
-        %li.nav-item
-          = link_to destroy_user_session_path, method: :delete, title: "Log out", class: "nav-link" do
-            = fa_solid "lock", size: 2
-      - else
-        %li.nav-item
-          = link_to new_user_session_path, title: "Log in", class: "nav-link #{'active' if current_page?(new_user_session_path)}" do
-            = fa_solid "lock-open", size: 2
+      %li.nav-item
+        = link_to new_download_path, title: "New Download", class: "nav-link #{'active' if current_page?(new_download_path) || current_page?(root_path)}" do
+          = fa_solid "plus"
+      %li.nav-item
+        = link_to new_search_path, title: "Search", class: "nav-link #{'active' if current_page?(new_search_path)}" do
+          = fa_solid "search"
+      %li.nav-item
+        = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "nav-link" do
+          = fa_solid "sync"
   .content.p-4(style="width: calc(100vw - 75px); position: relative; left: 75px;")
     = yield
