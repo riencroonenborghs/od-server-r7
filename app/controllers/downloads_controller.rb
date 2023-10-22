@@ -1,4 +1,6 @@
 class DownloadsController < ApplicationController
+  skip_forgery_protection
+
   def index
     redirect_to new_download_path
   end

@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Downloader",
+  "version": "1.0",
+
+  "description": "Add a link to a local instance of this Downloader.",
+
+  "icons": {
+    "48": "icons/icon.png"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+  
+  "permissions": [
+    "contextMenus",
+    "http://*/"
+  ]
+}

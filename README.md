@@ -1,4 +1,4 @@
-# OD Server
+# Downloader
 
 Rails 7 based download server.
 
