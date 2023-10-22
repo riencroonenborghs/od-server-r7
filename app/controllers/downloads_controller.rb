@@ -4,23 +4,23 @@ class DownloadsController < ApplicationController
   end
 
   def queued
-    @downloads = Download.queued.most_recent_first
+    @downloads = Download.queued.most_recent_first.page(params[:page] || 1)
   end
 
   def started
-    @downloads = Download.started.most_recent_first(:started_at)
+    @downloads = Download.started.most_recent_first(:started_at).page(params[:page] || 1)
   end
 
   def finished
-    @downloads = Download.finished.most_recent_first(:finished_at)
+    @downloads = Download.finished.most_recent_first(:finished_at).page(params[:page] || 1)
   end
 
   def failed
-    @downloads = Download.failed.most_recent_first(:failed_at)
+    @downloads = Download.failed.most_recent_first(:failed_at).page(params[:page] || 1)
   end
 
   def cancelled
-    @downloads = Download.cancelled.most_recent_first(:cancelled_at)
+    @downloads = Download.cancelled.most_recent_first(:cancelled_at).page(params[:page] || 1)
   end
 
   def new

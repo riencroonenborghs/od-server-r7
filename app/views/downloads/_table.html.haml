@@ -44,3 +44,5 @@
                 = button_to queue_download_path(download), title: "Queue again", class: "btn text-primary" do
                   = fa_solid "redo", size: 1
               
+.d-flex.flex-row.justify-content-end
+  = paginate @downloads
