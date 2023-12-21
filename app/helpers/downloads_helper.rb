@@ -11,6 +11,8 @@ module DownloadsHelper
     when YoutubeVideoDownload
       fa_brands("youtube", size: 1) +
       fa_solid("film", size: 1, classes: "ps-2")
+    when DailymotionDownload
+      fa_brands("dailymotion", size: 1)
     when ReleasedDotTvDownload
       fa_solid "tv", size: 1
     else

@@ -41,6 +41,10 @@ class CreateDownload
     youtube? && !audio?
   end
 
+  def dailymotion?
+    url.match?(/dailymotion\.com/)
+  end
+
   def bittorrent?
     url.match?(/magnet\:/)
   end
@@ -67,6 +71,8 @@ class CreateDownload
                   YoutubeAudioDownload.new(youtube_audio_download_params)
                 elsif youtube_video?
                   YoutubeVideoDownload.new(youtube_video_download_params)
+                elsif dailymotion?
+                  DailymotionDownload.new(dailymotion_download_params)
                 else
                   WgetDownload.new(wget_download_params)
                 end
@@ -93,6 +99,10 @@ class CreateDownload
 
   def youtube_audio_download_params
     params.update(youtube_audio_params)
+  end
+
+  def dailymotion_download_params
+    params
   end
 
   def wget_download_params
