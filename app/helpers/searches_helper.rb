@@ -14,6 +14,8 @@ module SearchesHelper
       fa_solid "film", size: 1
     when "tpb"
       fa_solid "cloud-download-alt", size: 1
+    when "leet"
+      fa_solid "cloud", size: 1
     when "youtube"
       fa_brands("youtube", size: 1)
     when "music"

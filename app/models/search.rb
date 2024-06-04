@@ -1,5 +1,5 @@
 class Search < ApplicationRecord
-  enum query_type: { movies: 0, tpb: 1, youtube: 3, music: 4, books: 5, mac_software: 6, general: 7 }
+  enum query_type: { movies: 0, tpb: 1, leet: 2, youtube: 3, music: 4, books: 5, mac_software: 6, general: 7 }
 
   def as_json
     {

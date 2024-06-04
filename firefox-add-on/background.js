@@ -1,6 +1,6 @@
 const protocol = 'http';
-const host = 'localhost';
-const port = 5000;
+const host = 'download.home';
+const port = 80;
 const serverUrl = `${protocol}://${host}:${port}/downloads`;
 
 function onCreated() {
