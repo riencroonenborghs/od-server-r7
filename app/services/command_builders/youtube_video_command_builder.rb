@@ -11,7 +11,7 @@ module CommandBuilders
     def command_options
       [].tap do |options|
         options << "--continue"
-        options << "--write-subs" if @download.youtube_subs || @download.youtube_srt_subs
+        options << "--write-subs --write-auto-subs" if @download.youtube_subs || @download.youtube_srt_subs
         options << "--convert-subs srt" if @download.youtube_srt_subs
       end
     end
