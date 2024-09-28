@@ -1,35 +1,37 @@
-%tr
-  %td.downloads--icons.text-center.bold
-    = download_type
+%tr.border-b.border-emerald-200.h-12
   %td
-    .downloads--url
+    .flex.justify-center.align-center
+      .text-xl.text-bold.text-amber-500(title="#{download_type_title}")
+        = download_type
+  %td
+    .overflow-hidden.text-ellipsis.whitespace-nowrap(style="width: calc(100vw - 30rem)")
       = link_to @download.url, target: "_blank" do
         = @download.url
       - if failed_view?
         %br
-      .fs-10
+        .text-xs.text-red-400
           = @download.error_message
   - if queued_view?
-    %td.fs-10
+    %td.text-xs.font-thin
       =@download.created_at.to_formatted_s(:timestamp)
   - if started_view?
-    %td.fs-10
+    %td.text-xs.font-thin
       =@download.started_at&.to_formatted_s(:timestamp)
   - if finished_view?
-    %td.fs-10
+    %td.text-xs.font-thin
       =@download.finished_at&.to_formatted_s(:timestamp)
   - if cancelled_view?
-    %td.fs-10
+    %td.text-xs.font-thin
       =@download.cancelled_at&.to_formatted_s(:timestamp)
   - if failed_view?
-    %td.fs-10
+    %td.text-xs.font-thin
       =@download.failed_at&.to_formatted_s(:timestamp)
   - if @actions.any?
-    %td.p-0
-      .d-flex
+    %td
+      .flex
         - if remove?
-          = button_to download_path(@download), method: :delete, title: "Remove", class: "btn text-danger" do
-            = fa_solid "trash", size: 1
+          = button_to download_path(@download), method: :delete, title: "Remove", class: "text-bold text-amber-500 me-2" do
+            X
         - if queue?
-          = button_to queue_download_path(@download), title: "Queue again", class: "btn text-primary" do
-            = fa_solid "redo", size: 1
+          = button_to queue_download_path(@download), title: "Queue again", class: "text-bold text-indigo-500" do
+            Q

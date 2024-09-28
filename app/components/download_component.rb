@@ -14,6 +14,10 @@ class DownloadComponent < ViewComponent::Base
   def download_type
     @download.download_type.camelcase.gsub(/[a-z]/, "").upcase
   end
+
+  def download_type_title
+    @download.download_type.split("_").map(&:camelcase).join(" ")
+  end
   
   def remove?
     @actions.include?(:remove)

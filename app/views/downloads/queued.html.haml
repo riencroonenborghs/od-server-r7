@@ -1,7 +1,8 @@
 - content_for :title do
   Queued Downloads
 
-.downloads.downloads--queued
-  = breadcrumb("Downloads", "Queued Downloads")
+.p-4
+  = render BreadcrumbsComponent.new(crumbs: ["Downloads", "Queued Downloads"])
+
+.p-4  
   = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued], actions: [:remove])
-  -# = render "table", table: { queued: true }, action: { remove: true }

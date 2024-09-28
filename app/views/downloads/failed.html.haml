@@ -1,8 +1,8 @@
 - content_for :title do
   Failed Downloads
 
-.downloads.downloads--failed
-  = breadcrumb("Downloads", "Failed Downloads")
-  = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued, :started, :failed], actions: [:remove, :queue])
-  -# = render "table", table: { queued: true, started: true, failed: true }, action: { remove: true, queue: true }
+.p-4
+  = render BreadcrumbsComponent.new(crumbs: ["Downloads", "Failed Downloads"])
 
+.p-4  
+  = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued, :started, :failed], actions: [:remove, :queue])

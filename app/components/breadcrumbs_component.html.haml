@@ -1,0 +1,7 @@
+.flex.text-slate-500
+  - @crumbs.each.with_index do |crumb, index|
+    .me-3
+      = crumb
+    - if index + 1 < @no_crumbs
+      .me-3
+        \ /

@@ -10,11 +10,46 @@
     = csrf_meta_tags
     = csp_meta_tag
 
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    -# = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
   %body
-    = render "/layouts/navbar"
-    = render partial: "/layouts/flash_messages"
+    .flex.flex-col
+      - if flash[:alert]
+        .p-2.bg-amber-300.text-amber-800.flex.justify-between
+          %div
+            = flash[:alert]
+          %div
+            x
+      - if flash[:notice]
+        .p-2.bg-lime-300.text-lime-800.flex.justify-between
+          %div
+            = flash[:notice]
+          %div
+            x
+      .flex.flex-row
+        #menu.flex.flex-col.justify-between.bg-emerald-300(style="width: 75px; height: calc(100vh);")
+          #menu-top
+            - Download.statuses.each_key do |key|
+              = link_to key, title: "#{key.camelcase} Downloads", class: "p-2 pt-4" do
+                .text-3xl.font-bold.text-emerald-800.text-center
+                  = "#{key.first.upcase}D"
+                .text-sm.font-thin.text-emerald-800.text-center
+                  = queue_sizes[key]
+          #menu-bottom
+            = link_to new_download_path, title: "New Download", class: "p-2 pt-4" do
+              .text-3xl.font-bold.text-emerald-800.text-center
+                +
+            = link_to new_search_path, title: "Search", class: "p-2 pt-4" do
+              .text-3xl.font-bold.text-emerald-800.text-center
+                S
+            = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "p-2 pt-4" do
+              .text-3xl.font-bold.text-emerald-800.text-center
+                SK
+        #content.w-full.overflow-auto(style="height: calc(100vh);")
+          = yield
 
-    
+      -# = render partial: "/layouts/flash_messages"
+
+      
