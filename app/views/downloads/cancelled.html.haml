@@ -3,5 +3,6 @@
 
 .downloads.downloads--cancelled
   = breadcrumb("Downloads", "Cancelled Downloads")
-  = render "table", table: { queued: true, cancelled: true }, action: { remove: true, queue: true }
+  = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued, :cancelled], actions: [:remove, :queue])
+  -# = render "table", table: { queued: true, cancelled: true }, action: { remove: true, queue: true }
   

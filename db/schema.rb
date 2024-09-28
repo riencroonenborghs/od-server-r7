@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_21_232009) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_221547) do
   create_table "downloads", force: :cascade do |t|
     t.string "url", null: false
     t.string "type"
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_21_232009) do
     t.string "error_message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "download_type", default: 0
   end
 
   create_table "searches", force: :cascade do |t|

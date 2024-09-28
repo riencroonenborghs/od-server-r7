@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Base
+module BaseService
   extend ActiveSupport::Concern
   include ActiveModel::Validations
 

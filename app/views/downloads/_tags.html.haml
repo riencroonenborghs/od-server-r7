@@ -1,17 +1,17 @@
-- if download.is_a? WgetDownload
-  - if download.filter.present?
-    %span.badge.rounded-pill.bg-primary.fs-11
-      = download.filter
-  - if download.http_auth?
-    %span.badge.rounded-pill.bg-info.fs-11
-      HTTP Auth
-- elsif download.is_a? YoutubeAudioDownload
-  %span.badge.rounded-pill.bg-secondary.fs-11
-    = download.youtube_audio_format
-- elsif download.is_a? YoutubeVideoDownload
-  - if download.youtube_subs
-    %span.badge.rounded-pill.bg-warning.fs-11
-      Subs
-  - if download.youtube_srt_subs
-    %span.badge.rounded-pill.bg-success.fs-11
-      SRT Subs
+-# - if download.is_a? WgetDownload
+-#   - if download.filter.present?
+-#     %span.badge.rounded-pill.bg-primary.fs-11
+-#       = download.filter
+-#   - if download.http_auth?
+-#     %span.badge.rounded-pill.bg-info.fs-11
+-#       HTTP Auth
+-# - elsif download.is_a? YoutubeAudioDownload
+-#   %span.badge.rounded-pill.bg-secondary.fs-11
+-#     = download.youtube_audio_format
+-# - elsif download.is_a? YoutubeVideoDownload
+-#   - if download.youtube_subs
+-#     %span.badge.rounded-pill.bg-warning.fs-11
+-#       Subs
+-#   - if download.youtube_srt_subs
+-#     %span.badge.rounded-pill.bg-success.fs-11
+-#       SRT Subs

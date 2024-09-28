@@ -53,7 +53,7 @@ class DownloadsController < ApplicationController
 
   def queue
     download = Download.find params[:id]
-    download.queue!
+    download.queued!
     redirect_to downloads_url, notice: "Download was successfully queued again."
   end
 

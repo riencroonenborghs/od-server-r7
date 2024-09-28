@@ -12,7 +12,7 @@
       = form.label :youtube_audio, "Audio", class: "form-check-label"
     .col-4.mb-3
       = form.label :youtube_audio_format, "Audio Format", class: "form-label pr-2"
-      = form.select :youtube_audio_format, YoutubeAudioDownload::AUDIO_FORMATS, {}, { data: { "newDownload-target" => "audioFormat" }, disabled: true, class: "form-select"}
+      = form.select :youtube_audio_format, Download::AUDIO_FORMATS, {}, { data: { "newDownload-target" => "audioFormat" }, disabled: true, class: "form-select"}
 
   .row.d-none(data-newDownload-target="sub")
     .col-1.mb-3

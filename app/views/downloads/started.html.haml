@@ -3,4 +3,5 @@
 
 .downloads.downloads--started
   = breadcrumb("Downloads", "Started Downloads")
-  = render "table", table: { queued: true, started: true }, action: { }
+  = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued, :started])
+  -# = render "table", table: { queued: true, started: true }, action: { }

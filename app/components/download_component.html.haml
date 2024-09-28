@@ -1,0 +1,35 @@
+%tr
+  %td.downloads--icons.text-center.bold
+    = download_type
+  %td
+    .downloads--url
+      = link_to @download.url, target: "_blank" do
+        = @download.url
+      - if failed_view?
+        %br
+      .fs-10
+          = @download.error_message
+  - if queued_view?
+    %td.fs-10
+      =@download.created_at.to_formatted_s(:timestamp)
+  - if started_view?
+    %td.fs-10
+      =@download.started_at&.to_formatted_s(:timestamp)
+  - if finished_view?
+    %td.fs-10
+      =@download.finished_at&.to_formatted_s(:timestamp)
+  - if cancelled_view?
+    %td.fs-10
+      =@download.cancelled_at&.to_formatted_s(:timestamp)
+  - if failed_view?
+    %td.fs-10
+      =@download.failed_at&.to_formatted_s(:timestamp)
+  - if @actions.any?
+    %td.p-0
+      .d-flex
+        - if remove?
+          = button_to download_path(@download), method: :delete, title: "Remove", class: "btn text-danger" do
+            = fa_solid "trash", size: 1
+        - if queue?
+          = button_to queue_download_path(@download), title: "Queue again", class: "btn text-primary" do
+            = fa_solid "redo", size: 1

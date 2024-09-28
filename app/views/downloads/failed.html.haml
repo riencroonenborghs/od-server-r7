@@ -3,5 +3,6 @@
 
 .downloads.downloads--failed
   = breadcrumb("Downloads", "Failed Downloads")
-  = render "table", table: { queued: true, started: true, failed: true }, action: { remove: true, queue: true }
+  = render DownloadsComponent.new(downloads: @downloads, status_views: [:queued, :started, :failed], actions: [:remove, :queue])
+  -# = render "table", table: { queued: true, started: true, failed: true }, action: { remove: true, queue: true }
 

@@ -1,0 +1,23 @@
+%table.table.table-hover.w-100
+  %thead
+    %tr
+      %th.downloads--icon
+      %th URL
+      - if queued_view?
+        %th.downloads--timestamp Q
+      - if started_view?
+        %th.downloads--timestamp S
+      - if finished_view?
+        %th.downloads--timestamp F
+      - if cancelled_view?
+        %th.downloads--timestamp C
+      - if failed_view?
+        %th.downloads--timestamp F
+      - if @actions.any?
+        %th.downloads--action-icons
+  %tbody
+    - @downloads.each do |download|
+      = render DownloadComponent.new(download: download, status_views: @status_views, actions: @actions)
+              
+.d-flex.flex-row.justify-content-end
+  = paginate @downloads
