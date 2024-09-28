@@ -14,10 +14,10 @@
       - if failed_view?
         %th F
       - if @actions.any?
-        %th.w-8
+        %th.w-12
   %tbody
     - @downloads.each do |download|
       = render DownloadComponent.new(download: download, status_views: @status_views, actions: @actions)
               
-.flex.justify-end.p-4
+.flex.justify-end.p-2.pt-4
   = paginate @downloads

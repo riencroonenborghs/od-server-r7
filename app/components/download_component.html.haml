@@ -30,8 +30,8 @@
     %td
       .flex
         - if remove?
-          = button_to download_path(@download), method: :delete, title: "Remove", class: "text-bold text-amber-500 me-2" do
+          = button_to download_path(@download), method: :delete, title: "Remove", class: "text-bold text-amber-500 m-2" do
             X
         - if queue?
-          = button_to queue_download_path(@download), title: "Queue again", class: "text-bold text-indigo-500" do
+          = button_to queue_download_path(@download), title: "Queue again", class: "text-bold text-indigo-500 m-2" do
             Q

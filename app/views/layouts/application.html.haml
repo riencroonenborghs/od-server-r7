@@ -14,7 +14,7 @@
     = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
-  %body
+  %body.bg-emerald-300
     .flex.flex-col
       - if flash[:alert]
         .p-2.bg-amber-300.text-amber-800.flex.justify-between
@@ -29,10 +29,10 @@
           %div
             x
       .flex.flex-row
-        #menu.flex.flex-col.justify-between.bg-emerald-300(style="width: 75px; height: calc(100vh);")
+        #menu.flex.flex-col.justify-between(style="width: 75px; height: calc(100vh - 6px);")
           #menu-top
             - Download.statuses.each_key do |key|
-              = link_to key, title: "#{key.camelcase} Downloads", class: "p-2 pt-4" do
+              = link_to send("#{key}_downloads_path"), title: "#{key.camelcase} Downloads", class: "p-2 pt-4" do
                 .text-3xl.font-bold.text-emerald-800.text-center
                   = "#{key.first.upcase}D"
                 .text-sm.font-thin.text-emerald-800.text-center
@@ -47,7 +47,7 @@
             = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "p-2 pt-4" do
               .text-3xl.font-bold.text-emerald-800.text-center
                 SK
-        #content.w-full.overflow-auto(style="height: calc(100vh);")
+        #content.w-full.overflow-auto.bg-white(style="height: calc(100vh);")
           = yield
 
       -# = render partial: "/layouts/flash_messages"
