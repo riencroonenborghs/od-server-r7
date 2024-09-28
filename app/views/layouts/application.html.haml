@@ -15,19 +15,26 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
   %body.bg-emerald-300
-    .flex.flex-col
-      - if flash[:alert]
-        .p-2.bg-amber-300.text-amber-800.flex.justify-between
-          %div
-            = flash[:alert]
-          %div
-            x
-      - if flash[:notice]
-        .p-2.bg-lime-300.text-lime-800.flex.justify-between
-          %div
-            = flash[:notice]
-          %div
-            x
+    .flex.flex-col(data-controller="alerts")
+      .absolute.bottom-0.right-px
+        - if flash[:alert]
+          .alert.p-2.bg-amber-300.text-amber-800.flex.justify-between.items-center.m-1
+            .flex.items-center
+              .text-3xl.me-2 !
+              .me-2
+                = flash[:alert]
+            = link_to "#", "data-action" => "click->alerts#dismiss" do
+              .rounded-full.bg-amber-800.text-amber-300.p-0.ps-2.pe-2
+                X
+        - if flash[:notice]
+          .alert.p-2.bg-lime-300.text-lime-800.flex.justify-between.items-center.m-1
+            .flex.items-center
+              .text-3xl.me-2 :)
+              .me-2 
+                = flash[:notice]
+            = link_to "#", "data-action" => "click->alerts#dismiss" do
+              .rounded-full.bg-lime-800.text-lime-300.p-0.ps-2.pe-2
+                X
       .flex.flex-row
         #menu.flex.flex-col.justify-between(style="width: 75px; height: calc(100vh - 6px);")
           #menu-top
@@ -49,7 +56,4 @@
                 SK
         #content.w-full.overflow-auto.bg-white(style="height: calc(100vh);")
           = yield
-
-      -# = render partial: "/layouts/flash_messages"
-
-      
+          

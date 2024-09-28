@@ -12,3 +12,7 @@ application.register("search", SearchController)
 
 import SearchesController from "./SearchesController";
 application.register("searches", SearchesController)
+
+
+import AlertsController from "./alerts_controller";
+application.register("alerts", AlertsController)
