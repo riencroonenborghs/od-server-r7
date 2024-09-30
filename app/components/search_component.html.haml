@@ -1,0 +1,13 @@
+%tr.border-b.border-emerald-200.h-12
+  %td
+    .flex.justify-center.align-center
+      .text-xl.text-bold.text-amber-500(title="#{@search.query_type}")
+        = search_type
+  %td
+    .btn.text-bold.text-indigo-500.m-2.cursor-pointer(title="Search #{@search.query}" data-controller="searches" data-searches-search="#{@search.as_json.to_json}" data-action="click->searches#searchClicked")
+      S
+  %td
+    = @search.query
+  %td
+    = button_to search_path(@search), method: :delete, title: "Remove", class: "text-bold text-red-500 m-2" do
+      X

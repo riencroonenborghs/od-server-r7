@@ -1,7 +1,6 @@
 - content_for :title do
   New Download
 
-
 .p-4
   = render BreadcrumbsComponent.new(crumbs: ["Downloads", "New Download"])
 
@@ -11,7 +10,8 @@
       = form.label :url, class: "block mb-2 text-sm"
       = form.text_field :url, type: "url", placeholder: "http://some.url.goes.here", class: "block w-3/4 border-0 bg-emerald-50 focus:ring-0 text-2xl", data: { "downloads-target" => "url", action: "change->downloads#urlChanged", action: "keyup->downloads#urlChanged" }, autofocus: true
       - if @download.errors[:url].any?
-        .text-red-400=@download.errors[:url].join(", ")
+        .text-red-400.text-xs
+          = @download.errors[:url].join(", ")
 
     .flex.items-center.mb-4.hidden(data-downloads-target="audio")
       = form.check_box :youtube_audio, { class: "w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-0", data: { "downloads-target" => "youtubeAudio", action: "change->downloads#audioChanged" } }, true, false

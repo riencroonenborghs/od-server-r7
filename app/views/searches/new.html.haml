@@ -1,8 +1,29 @@
 - content_for :title do
   Search
 
-.downloads.search(data-controller="search")
-  = breadcrumb("Search")
-  = render "form"
-  = render "searches", searches: @searches
+.p-4
+  = render BreadcrumbsComponent.new(crumbs: ["Search"])
+
+.p-4(data-controller="search")
+
+.p-4
+  %table.w-full
+    %thead.border-b-2.border-emerald-500
+      %tr
+        %th.w-16
+        %th.w-6
+        %th
+        %th.w-6
+    %tbody
+      - @searches.each do |search|
+        - next unless search.persisted?
+        = render SearchComponent.new(search: search)
+
+        
+
+
+-# .downloads.search(data-controller="search")
+-#   = breadcrumb("Search")
+-#   = render "form"
+-#   = render "searches", searches: @searches
   

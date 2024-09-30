@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
     service = CreateSearch.perform(params: search_params)
 
     if service.success?
-      redirect_to new_search_path, notice: "Search was successfully created."
+      redirect_to new_search_path, notice: "Search added"
     else
       @search = service.search
       render :new, status: :unprocessable_entity
@@ -18,7 +18,7 @@ class SearchesController < ApplicationController
   def destroy
     search = Search.find(params[:id])
     search.destroy
-    redirect_to new_search_path, notice: "Search was successfully removed."
+    redirect_to new_search_path, notice: "Search removed"
   end
 
   private
