@@ -4,7 +4,7 @@ class Download < ApplicationRecord
   self.ignored_columns = [:type]
 
   FILTER_PRESETS = %w[720 1080 Season1 Season2 Season3 Season4 Season5]
-  AUDIO_FORMATS = []
+  AUDIO_FORMATS = { best: 0, aac: 1, flac: 2, mp3: 3, m4a: 4, opus: 5, vorbis: 6, wav: 7 }
 
   validates :url, presence: true
 

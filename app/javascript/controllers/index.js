@@ -4,8 +4,8 @@
 
 import { application } from "./application"
 
-import NewDownloadController from "./NewDownloadController";
-application.register("newDownload", NewDownloadController)
+import DownloadsController from "./downloads_controller";
+application.register("downloads", DownloadsController)
 
 import SearchController from "./SearchController";
 application.register("search", SearchController)

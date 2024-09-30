@@ -37,7 +37,7 @@ class DownloadsController < ApplicationController
     )
 
     if service.success?
-      redirect_to queued_downloads_path, notice: "Download was successfully created."
+      redirect_to queued_downloads_path, notice: "Download added"
     else
       @download = service.download
       render :new, status: :unprocessable_entity
@@ -48,13 +48,13 @@ class DownloadsController < ApplicationController
     download = Download.find params[:id]
     status = download.status
     download.destroy
-    redirect_to send(:"#{status}_downloads_url"), notice: "Download was successfully removed."
+    redirect_to send(:"#{status}_downloads_url"), notice: "Download removed"
   end
 
   def queue
     download = Download.find params[:id]
     download.queued!
-    redirect_to downloads_url, notice: "Download was successfully queued again."
+    redirect_to downloads_url, notice: "Download queued"
   end
 
   private
