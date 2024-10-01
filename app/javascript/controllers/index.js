@@ -7,7 +7,7 @@ import { application } from "./application"
 import DownloadsController from "./downloads_controller";
 application.register("downloads", DownloadsController)
 
-import SearchController from "./SearchController";
+import SearchController from "./search_controller";
 application.register("search", SearchController)
 
 import SearchesController from "./SearchesController";

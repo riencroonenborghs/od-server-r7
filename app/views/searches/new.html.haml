@@ -5,6 +5,23 @@
   = render BreadcrumbsComponent.new(crumbs: ["Search"])
 
 .p-4(data-controller="search")
+  = form_with(scope: :search, url: searches_path, method: :post) do |form|
+    .mb-5.flex.items-center
+      = form.text_field :query, placeholder: "Aliens 1986", class: "block w-3/4 border-0 bg-emerald-50 focus:ring-0 text-4xl", data: { "search-target" => "query", action: "keyup->search#queryChanged" }, autofocus: true
+      = link_to "#", class: "text-emerald-800 px-5 py-2.5", data: { action: "click->search#searchClicked" } do
+        Search
+      %button(type="submit" class="text-white bg-emerald-700 hover:bg-emerald-800 px-5 py-2.5")
+        Save
+    .flex.items-center.mb-4
+      = form.select :query_type, query_types, {}, { data: { "search-target" => "queryType", action: "change->search#queryTypeChanged" }, class: "bg-emerald-50 border-0 text-sm focus:ring-0 block p-2.5 w-1/6 disabled:text-slate-200" }
+
+      = form.check_box :alternative, { class: "ms-2 w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-0", data: { "search-target" => "alternative", action: "change->search#alternativeChanged" } }
+      = form.label :alternative, class: "ms-2 text-sm"
+
+      = form.check_box :quoted, { class: "ms-2 w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-0", data: { "search-target" => "quoted", action: "change->search#quotedChanged" } }
+      = form.label :quoted, class: "ms-2 text-sm"
+
+    .hidden.text-xs.p-2.bg-emerald-50(data-search-target="url")
 
 .p-4
   %table.w-full
@@ -18,12 +35,3 @@
       - @searches.each do |search|
         - next unless search.persisted?
         = render SearchComponent.new(search: search)
-
-        
-
-
--# .downloads.search(data-controller="search")
--#   = breadcrumb("Search")
--#   = render "form"
--#   = render "searches", searches: @searches
-  
