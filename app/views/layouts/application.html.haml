@@ -5,7 +5,7 @@
       Downloader - 
       = yield :title 
     %meta(name="viewport" content="width=device-width, initial-scale=1")
-    -# = favicon_link_tag asset_path("favicon.png")
+    = favicon_link_tag asset_path("favicon.png")
     -# %link(rel="apple-touch-icon" href="#{asset_path("apple-touch.png")}")
     = csrf_meta_tags
     = csp_meta_tag
@@ -37,21 +37,27 @@
                 X
       .flex.flex-row
         #menu.flex.flex-col.justify-between(style="width: 75px; height: calc(100vh - 6px);")
-          #menu-top
+          #menu-top.flex.flex-col
             - Download.statuses.each_key do |key|
-              = link_to send("#{key}_downloads_path"), title: "#{key.camelcase} Downloads", class: "p-2 pt-4" do
-                .text-3xl.font-bold.text-emerald-800.text-center
-                  = "#{key.first.upcase}D"
-                .text-sm.font-thin.text-emerald-800.text-center
-                  = queue_sizes[key]
+              - path = send("#{key}_downloads_path")
+              - active = active_page?(path)
+              = link_to path, title: "#{key.camelcase} Downloads" do
+                .p-2.pt-4.text-emerald-800(class="#{'bg-white' if active}")
+                  .text-3xl.font-bold.text-center
+                    = "#{key.first.upcase}D"
+                  .text-sm.font-thin.text-center
+                    = queue_sizes[key]
+                  
           #menu-bottom
-            = link_to new_download_path, title: "New Download", class: "p-2 pt-4" do
-              .text-3xl.font-bold.text-emerald-800.text-center
-                +
-            = link_to new_search_path, title: "Search", class: "p-2 pt-4" do
-              .text-3xl.font-bold.text-emerald-800.text-center
-                S
-            = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "p-2 pt-4" do
+            = link_to new_download_path, title: "New Download" do
+              .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_download_path)}")
+                .text-3xl.font-bold.text-emerald-800.text-center
+                  +
+            = link_to new_search_path, title: "Search" do
+              .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_search_path )}")
+                .text-3xl.font-bold.text-emerald-800.text-center
+                  S
+            = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "p-4" do
               .text-3xl.font-bold.text-emerald-800.text-center
                 SK
         #content.w-full.overflow-auto.bg-white(style="height: calc(100vh);")

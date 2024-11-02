@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def active_page?(path)
+    request.fullpath.start_with?(path)
+  end
+
   def clean_summary(summary)
     return unless summary
 
