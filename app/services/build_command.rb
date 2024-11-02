@@ -18,7 +18,7 @@ class BuildCommand
 
     errors.merge!(builder.errors)
   rescue StandardError => e
-    errors.add(:base, "Could not build command: #{e.message}")
+    add_error("Could not build command: #{e.message}")
   end
 
   private

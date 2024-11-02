@@ -1,4 +1,2 @@
 ---
 :concurrency: 5
-:queues:
-  - bootlegger

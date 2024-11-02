@@ -24,7 +24,7 @@ class CarryOutDownload
     if Kernel.system(@command)
       download.finished!
     else
-      logged_fail(error_message: $?)
+      logged_fail(error_message: "Kernel.system failed")
     end
   rescue => e
     logged_fail(error_message: e.message)
@@ -35,12 +35,12 @@ class CarryOutDownload
   def download_queued
     return if download.queued?
 
-    errors.add(:base, "Download is not queued")
+    add_error("Download is not queued")
   end
 
   def prep_output_path
-    dir = ENV.fetch("OUTPUT_PATH")
-    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    output_path = ENV.fetch("OUTPUT_PATH")
+    FileUtils.mkdir_p(output_path) unless File.exists?(output_path)
   end
 
   def build_command
@@ -54,8 +54,7 @@ class CarryOutDownload
   def logged_fail(error_message:)
     message = "Could not download: #{error_message}"
     download.failed!
-    download.update(error_message: message)
-    errors.add(:base, message)
-    Rails.logger.error(message)
+    download.update(error_message: "[CarryOutDownload] #{message}")
+    add_error(message)
   end
 end
