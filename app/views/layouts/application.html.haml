@@ -50,7 +50,7 @@
                   
           #menu-bottom
             = link_to new_download_path, title: "New Download" do
-              .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_download_path)}")
+              .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_download_path) || current_page?(root_path)}")
                 .text-3xl.font-bold.text-emerald-800.text-center
                   +
             = link_to new_search_path, title: "Search" do
