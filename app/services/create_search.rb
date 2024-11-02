@@ -1,5 +1,5 @@
 class CreateSearch
-  include Base
+  include BaseService
 
   attr_reader :params, :search
   
