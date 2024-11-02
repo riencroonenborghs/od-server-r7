@@ -30,7 +30,7 @@ class CreateDownload
     @filter_preset = @params.delete(:filter_preset)
     return unless @filter_preset.present?
 
-    @filter_preset = "*#{filter_preset}*"
+    @filter_preset = "*#{@filter_preset}*"
   end
 
   def build_base_download

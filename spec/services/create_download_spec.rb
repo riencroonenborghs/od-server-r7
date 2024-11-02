@@ -1,66 +1,138 @@
-# require "rails_helper"
+# fozen_string_literal: true
 
-# RSpec.describe CreateDownload do
-#   let(:youtube_audio_params) { {} }
-#   let(:youtube_video_params) { {} }
-#   let(:subject) { described_class.perform(params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
+RSpec.describe CreateDownload do
+  subject(:create_download) { described_class.perform(params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
 
-#   shared_examples "creates a download" do |klass|
-#     it "is a success" do
-#       expect(subject.success?).to be_truthy
-#     end
+  let(:params) { { url: url } }
+  let(:url) { nil }
+  let(:youtube_audio_params) { {} }
+  let(:youtube_video_params) { {} }
 
-#     it "creates a #{klass} download" do
-#       expect { subject }.to change(klass, :count).by(1)
-#     end
-#   end
+  before do
+    allow(CarryOutDownloadJob).to receive(:perform_later)
+  end
 
-#   describe ".perform" do
-#     context "when it's a bittorrent download" do
-#       let(:params) { { url: "magnet:somelongstringgoeshere" } }
+  context "when there's wget params" do
+    let(:params) { { url: url } }
+    let(:url) { Faker::Internet.url }
 
-#       it_behaves_like "creates a download", BittorrentDownload
-#     end
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
 
-#     context "when it's a released.tv download" do
-#       let(:params) { { url: "http://released.tv/files/foo/bar.baz" } }
+    it "creates a wget download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "wget"
+    end
 
-#       it_behaves_like "creates a download", ReleasedDotTvDownload
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
 
-#       it "sets http authentication" do
-#         subject.perform
-#         download = subject.download
-#         expect(download.http_username).to_not be_nil
-#         expect(download.http_password).to_not be_nil
-#       end
-#     end
+    context "when there's no filter preset" do
+      it "sets no filter" do
+        create_download
+        expect(Download.last.filter).to be_nil
+      end
+    end
 
-#     context "when it's a youtube audio download" do
-#       let(:params) { { url: "https://www.youtube.com/watch?v=foobarbaz" } }
-#       let(:youtube_audio_params) { { youtube_audio: "true", youtube_audio_format: "best" } }
+    context "when there's a filter preset" do
+      let(:params) { { url: url, filter_preset: "preset" } }
+      let(:url) { Faker::Internet.url }
 
-#       it_behaves_like "creates a download", YoutubeAudioDownload
-#     end
+      it "sets the filter" do
+        create_download
+        expect(Download.last.filter).to eq "*preset*"
+      end
+    end
+  end
 
-#     context "when it's a youtube audio download" do
-#       let(:params) { { url: "https://www.youtube.com/watch?v=foobarbaz" } }
+  context "when there's released.tv params" do
+    let(:url) { "https://released.tv/something/or/other" }
 
-#       it_behaves_like "creates a download", YoutubeVideoDownload
-#     end
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
 
-#     context "when it's a wget download" do
-#       let(:params) { { url: "https://foo.bar.com/baz.olaf" } }
+    it "creates a released dot tv download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "released_dot_tv"
+    end
 
-#       it_behaves_like "creates a download", WgetDownload
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
+  end
 
-#       context "when there's a filter preset" do
-#         let(:params) { { url: "https://foo.bar.com/baz.olaf", filter_preset: "foobarbaz" } }
+  context "when there's youtube video params" do
+    let(:youtube_video_params) { { youtube_subs: true, youtube_srt_subs: true } }
+    let(:url) { "https://www.youtube.com/watch?v=5DoAm035yO8" }
 
-#         it "handles the filter preset" do
-#           subject.perform
-#           expect(subject.download.filter).to eq "*foobarbaz*"
-#         end
-#       end
-#     end
-#   end
-# end
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
+
+    it "creates a youtube video download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "youtube_video"
+    end
+
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
+
+    it "sets subs settings" do
+      create_download
+      download = Download.last
+      expect(download.youtube_subs).to be_truthy
+      expect(download.youtube_srt_subs).to be_truthy
+    end
+  end
+
+  context "when there's a youtube audio" do
+    let(:youtube_audio_params) { { youtube_audio: "true", youtube_audio_format: "best" } }
+    let(:url) { "https://www.youtube.com/watch?v=5DoAm035yO8" }
+
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
+
+    it "creates a youtube audio download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "youtube_audio"
+    end
+
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
+
+    it "sets subs settings" do
+      create_download
+      download = Download.last
+      expect(download.youtube_audio).to be_truthy
+      expect(download.youtube_audio_format).to eq "best"
+    end
+  end
+
+  context "when there's a bittorrent" do
+    let(:url) { "magnet:?xtn=urn:btih:something" }
+
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
+
+    it "creates a bittorrent download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "bittorrent"
+    end
+
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
+  end
+end
