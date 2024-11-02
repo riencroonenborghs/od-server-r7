@@ -1,12 +1,12 @@
 # fozen_string_literal: true
 
 RSpec.describe CreateDownload do
-  subject(:create_download) { described_class.perform(params: params, youtube_audio_params: youtube_audio_params, youtube_video_params: youtube_video_params) }
+  subject(:create_download) { described_class.perform(params: params, youtube_audio_params: youtube_audio_params, youtube_subtitles_params: youtube_subtitles_params) }
 
   let(:params) { { url: url } }
   let(:url) { nil }
   let(:youtube_audio_params) { {} }
-  let(:youtube_video_params) { {} }
+  let(:youtube_subtitles_params) { {} }
 
   before do
     allow(CarryOutDownloadJob).to receive(:perform_later)
@@ -67,7 +67,6 @@ RSpec.describe CreateDownload do
   end
 
   context "when there's youtube video params" do
-    let(:youtube_video_params) { { youtube_subs: true, youtube_srt_subs: true } }
     let(:url) { "https://www.youtube.com/watch?v=5DoAm035yO8" }
 
     it "suceeds" do
@@ -77,6 +76,25 @@ RSpec.describe CreateDownload do
     it "creates a youtube video download" do
       expect { create_download }.to change { Download.count }.by(1)
       expect(Download.last.download_type).to eq "youtube_video"
+    end
+
+    it "sets the URL" do
+      create_download
+      expect(Download.last.url).to eq url
+    end
+  end
+
+  context "when there's youtube subtitles params" do
+    let(:youtube_subtitles_params) { { youtube_subs: "1", youtube_srt_subs: "1" } }
+    let(:url) { "https://www.youtube.com/watch?v=5DoAm035yO8" }
+
+    it "suceeds" do
+      expect(create_download).to be_success
+    end
+
+    it "creates a youtube video download" do
+      expect { create_download }.to change { Download.count }.by(1)
+      expect(Download.last.download_type).to eq "youtube_subtitles"
     end
 
     it "sets the URL" do

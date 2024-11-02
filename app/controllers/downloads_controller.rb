@@ -33,7 +33,7 @@ class DownloadsController < ApplicationController
     service = CreateDownload.perform(
       params: download_params,
       youtube_audio_params: youtube_audio_params,
-      youtube_video_params: youtube_video_params
+      youtube_subtitles_params: youtube_subtitles_params
     )
 
     if service.success?
@@ -67,7 +67,7 @@ class DownloadsController < ApplicationController
     params.require(:download).permit(:youtube_audio, :youtube_audio_format)
   end
 
-  def youtube_video_params
+  def youtube_subtitles_params
     params.require(:download).permit(:youtube_subs, :youtube_srt_subs)
   end
 end

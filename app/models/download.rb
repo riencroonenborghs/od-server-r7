@@ -8,7 +8,7 @@ class Download < ApplicationRecord
 
   validates :url, presence: true
 
-  enum :download_type, wget: 0, released_dot_tv: 1, youtube_video: 2, youtube_audio: 3, bittorrent: 4
+  enum :download_type, wget: 0, released_dot_tv: 1, youtube_video: 2, youtube_audio: 3, bittorrent: 4, youtube_subtitles: 5
   enum :status, queued: 0, started: 1, finished: 2, cancelled: 3, failed: 4
   
   scope :most_recent_first, -> (field = :created_at) { order(field => :desc) }

@@ -9,11 +9,7 @@ module CommandBuilders
     end
 
     def command_options
-      [].tap do |options|
-        options << "--continue"
-        options << "--write-subs --write-auto-subs" if @download.youtube_subs || @download.youtube_srt_subs
-        options << "--convert-subs srt" if @download.youtube_srt_subs
-      end
+      ["--continue"]
     end
 
     def command_output

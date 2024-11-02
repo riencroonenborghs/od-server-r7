@@ -3,10 +3,10 @@ class CreateDownload
 
   attr_reader :download
 
-  def initialize(params:, youtube_audio_params:, youtube_video_params:)
+  def initialize(params:, youtube_audio_params:, youtube_subtitles_params:)
     @params = params.to_h
     @youtube_audio_params = youtube_audio_params.to_h
-    @youtube_video_params = youtube_video_params.to_h
+    @youtube_subtitles_params = youtube_subtitles_params.to_h
   end
 
   def perform
@@ -47,9 +47,11 @@ class CreateDownload
       if @youtube_audio_params[:youtube_audio] == "true"
         @download.download_type = "youtube_audio"
         @download.assign_attributes(@youtube_audio_params)
+      elsif @youtube_subtitles_params[:youtube_subs] == "1"
+        @download.download_type = "youtube_subtitles"
+        @download.assign_attributes(@youtube_subtitles_params)
       else
         @download.download_type = "youtube_video"
-        @download.assign_attributes(@youtube_video_params)
       end
     else
       @download.download_type = "wget"
