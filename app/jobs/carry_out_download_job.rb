@@ -6,7 +6,7 @@ class CarryOutDownloadJob < ApplicationJob
     Rails.logger.error exception.message
   end
 
-  queue_as :bootlegger
+  queue_as :corsair
 
   def perform(download)
     return unless download
