@@ -4,15 +4,25 @@
       %th.w-16
       %th URL
       - if queued_view?
-        %th Q
+        %th
+          .flex.justify-center
+            = render IconComponent.new(name: :queued, size: 4)
       - if started_view?
-        %th S
+        %th
+          .flex.justify-center
+            = render IconComponent.new(name: :started, size: 4)
       - if finished_view?
-        %th F
+        %th
+          .flex.justify-center
+            = render IconComponent.new(name: :failed, size: 4)
       - if cancelled_view?
-        %th C
+        %th
+          .flex.justify-center
+            = render IconComponent.new(name: :cancelled, size: 4)
       - if failed_view?
-        %th F
+        %th
+          .flex.justify-center
+            = render IconComponent.new(name: :failed, size: 4)
       - if @actions.any?
         %th.w-12
   %tbody

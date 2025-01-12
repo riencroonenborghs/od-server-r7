@@ -4,10 +4,11 @@
       .text-xl.text-bold.text-amber-500(title="#{@search.query_type}")
         = search_type
   %td
-    .btn.text-bold.text-indigo-500.m-2.cursor-pointer(title="Search #{@search.query}" data-controller="searches" data-searches-search="#{@search.as_json.to_json}" data-action="click->searches#searchClicked")
-      S
+    .flex
+      = button_to search_path(@search), method: :delete, title: "Remove", class: "text-bold text-red-500 m-2" do
+        .flex.align-center
+          = render IconComponent.new(name: :trash, size: 4)
+      .btn.text-bold.text-indigo-500.m-2.cursor-pointer(title="Search #{@search.query}" data-controller="searches" data-searches-search="#{@search.as_json.to_json}" data-action="click->searches#searchClicked")
+        = render IconComponent.new(name: :play, size: 4)
   %td
     = @search.query
-  %td
-    = button_to search_path(@search), method: :delete, title: "Remove", class: "text-bold text-red-500 m-2" do
-      X

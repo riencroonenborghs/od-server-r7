@@ -20,23 +20,25 @@
         - if flash[:alert]
           .alert.p-2.bg-amber-300.text-amber-800.flex.justify-between.items-center.m-1
             .flex.items-center
-              .text-3xl.me-2 !
+              .text-3xl.me-2
+                = render IconComponent.new(name: :achtung)
               .me-2
                 = flash[:alert]
             = link_to "#", "data-action" => "click->alerts#dismiss" do
-              .rounded-full.bg-amber-800.text-amber-300.p-0.ps-2.pe-2
-                X
+              .rounded-full.p-1
+                = render IconComponent.new(name: :x, size: 4)
         - if flash[:notice]
           .alert.p-2.bg-lime-300.text-lime-800.flex.justify-between.items-center.m-1
             .flex.items-center
-              .text-3xl.me-2 :)
+              .text-3xl.me-2
+                = render IconComponent.new(name: :happy)
               .me-2 
                 = flash[:notice]
             = link_to "#", "data-action" => "click->alerts#dismiss" do
-              .rounded-full.bg-lime-800.text-lime-300.p-0.ps-2.pe-2
-                X
+              .rounded-full.p-1
+                = render IconComponent.new(name: :x, size: 4)
       .flex.flex-row
-        #menu.flex.flex-col.justify-between(style="width: 75px; height: calc(100vh - 6px);")
+        #menu.flex.flex-col.justify-between(style="width: 75px; height: calc(100vh - 40px);")
           #menu-top.flex.flex-col
             - Download.statuses.each_key do |key|
               - path = send("#{key}_downloads_path")
@@ -44,22 +46,23 @@
               = link_to path, title: "#{key.camelcase} Downloads" do
                 .p-2.pt-4.text-emerald-800(class="#{'bg-white' if active}")
                   .text-3xl.font-bold.text-center
-                    = "#{key.first.upcase}D"
+                    .flex.justify-center
+                      = render IconComponent.new(name: key.to_sym)
                   .text-sm.font-thin.text-center
                     = queue_sizes[key]
                   
           #menu-bottom
             = link_to new_download_path, title: "New Download" do
               .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_download_path) || current_page?(root_path)}")
-                .text-3xl.font-bold.text-emerald-800.text-center
-                  +
+                .text-3xl.font-bold.text-emerald-800.text-center.flex.justify-center
+                  = render IconComponent.new(name: :plus)
             = link_to new_search_path, title: "Search" do
               .p-4.text-emerald-800(class="#{'bg-white' if active_page?(new_search_path )}")
-                .text-3xl.font-bold.text-emerald-800.text-center
-                  S
+                .text-3xl.font-bold.text-emerald-800.text-center.flex.justify-center
+                  = render IconComponent.new(name: :search)
             = link_to "/sidekiq", title: "Sidekiq", target: "_blank", class: "p-4" do
-              .text-3xl.font-bold.text-emerald-800.text-center
-                SK
+              .text-3xl.font-bold.text-emerald-800.text-center.flex.justify-center
+                = render IconComponent.new(name: :briefcase)
         #content.w-full.overflow-auto.bg-white(style="height: calc(100vh);")
           = yield
           

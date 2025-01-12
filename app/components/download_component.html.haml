@@ -9,29 +9,31 @@
         = @download.url
       - if failed_view?
         %br
-        .text-xs.text-red-400
+        .text-xxs.text-red-400
           = @download.error_message
   - if queued_view?
-    %td.text-xs.font-thin
+    %td.text-xxs.font-thin(title="#{@download.created_at&.to_formatted_s(:timestamp_long)}")
       =@download.created_at.to_formatted_s(:timestamp)
   - if started_view?
-    %td.text-xs.font-thin
+    %td.text-xxs.font-thin(title="#{@download.started_at&.to_formatted_s(:timestamp_long)}")
       =@download.started_at&.to_formatted_s(:timestamp)
   - if finished_view?
-    %td.text-xs.font-thin
+    %td.text-xxs.font-thin(title="#{@download.finished_at&.to_formatted_s(:timestamp_long)}")
       =@download.finished_at&.to_formatted_s(:timestamp)
   - if cancelled_view?
-    %td.text-xs.font-thin
+    %td.text-xxs.font-thin(title="#{@download.cancelled_at&.to_formatted_s(:timestamp_long)}")
       =@download.cancelled_at&.to_formatted_s(:timestamp)
   - if failed_view?
-    %td.text-xs.font-thin
+    %td.text-xxs.font-thin(title="#{@download.failed_at&.to_formatted_s(:timestamp_long)}")
       =@download.failed_at&.to_formatted_s(:timestamp)
   - if @actions.any?
     %td
       .flex
         - if remove?
           = button_to download_path(@download), method: :delete, title: "Remove", class: "text-bold text-red-500 m-2" do
-            X
+            .flex.align-center
+              = render IconComponent.new(name: :trash, size: 4)
         - if queue?
           = button_to queue_download_path(@download), title: "Queue again", class: "text-bold text-indigo-500 m-2" do
-            Q
+            .flex.align-center
+              = render IconComponent.new(name: :queued, size: 4)
