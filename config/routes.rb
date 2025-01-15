@@ -5,17 +5,15 @@ Rails.application.routes.draw do
 
   resources :downloads, only: [:index, :new, :create, :destroy] do
     collection do
-      get :queued        
-      get :started
-      get :finished
-      get :failed
-      get :cancelled
       delete :remove_all_fininshed
     end
-    member do
-      post :queue
-    end
   end
+
+  resources :queued_downloads, only: [:index, :create]
+  resources :started_downloads, only: [:index]
+  resources :finished_downloads, only: [:index]
+  resources :failed_downloads, only: [:index]
+  resources :cancelled_downloads, only: [:index]
 
   resources :searches, only: [:index, :new, :create, :destroy]
 

@@ -57,6 +57,6 @@
             .flex.align-center
               = render IconComponent.new(name: :trash, size: 4)
         - if queue?
-          = button_to queue_download_path(@download), title: "Queue again", class: "text-bold text-indigo-500 m-2" do
+          = button_to queued_downloads_path, params: { id: @download }, method: :post, title: "Queue again", class: "text-bold text-indigo-500 m-2" do
             .flex.align-center
               = render IconComponent.new(name: :queued, size: 4)

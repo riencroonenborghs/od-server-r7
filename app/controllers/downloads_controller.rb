@@ -5,26 +5,6 @@ class DownloadsController < ApplicationController
     redirect_to new_download_path
   end
 
-  def queued
-    @downloads = Download.queued.most_recent_first.page(params[:page] || 1)
-  end
-
-  def started
-    @downloads = Download.started.most_recent_first(:started_at).page(params[:page] || 1)
-  end
-
-  def finished
-    @downloads = Download.finished.most_recent_first(:finished_at).page(params[:page] || 1)
-  end
-
-  def failed
-    @downloads = Download.failed.most_recent_first(:failed_at).page(params[:page] || 1)
-  end
-
-  def cancelled
-    @downloads = Download.cancelled.most_recent_first(:cancelled_at).page(params[:page] || 1)
-  end
-
   def new
     @download = Download.new
   end
@@ -49,12 +29,6 @@ class DownloadsController < ApplicationController
     status = download.status
     download.destroy
     redirect_to send(:"#{status}_downloads_url"), notice: "Download removed"
-  end
-
-  def queue
-    download = Download.find params[:id]
-    download.queued!
-    redirect_to downloads_url, notice: "Download queued"
   end
 
   def remove_all_fininshed
