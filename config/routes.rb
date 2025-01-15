@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :finished
       get :failed
       get :cancelled
+      delete :remove_all_fininshed
     end
     member do
       post :queue

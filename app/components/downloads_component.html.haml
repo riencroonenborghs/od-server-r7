@@ -25,6 +25,10 @@
             = render IconComponent.new(name: :failed, size: 4)
       - if @actions.any?
         %th.w-12
+          - if finished_view? && finished_dowloads?
+            = button_to remove_all_fininshed_downloads_path, method: :delete, title: "Remove all finished downloads", class: "text-bold text-red-500 m-2" do
+              .flex.align-center
+                = render IconComponent.new(name: :trash, size: 4)
   %tbody
     - @downloads.each do |download|
       = render DownloadComponent.new(download: download, status_views: @status_views, actions: @actions)

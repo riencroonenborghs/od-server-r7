@@ -8,4 +8,8 @@ class DownloadsComponent < ViewComponent::Base
     @status_views = status_views
     @actions = actions
   end
+
+  def finished_dowloads?
+    Download.finished.count.nonzero?
+  end
 end

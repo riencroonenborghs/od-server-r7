@@ -57,6 +57,11 @@ class DownloadsController < ApplicationController
     redirect_to downloads_url, notice: "Download queued"
   end
 
+  def remove_all_fininshed
+    Download.finished.map(&:destroy)
+    redirect_to finished_downloads_path, notice: "All finished downloads removed"
+  end
+
   private
 
   def download_params
