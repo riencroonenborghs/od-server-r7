@@ -1,8 +1,31 @@
 %tr.border-b.border-emerald-200.h-12
   %td
     .flex.justify-center.align-center
-      .text-xl.text-bold.text-amber-500(title="#{download_type_title}")
-        = download_type
+      .text-xl.text-bold.text-amber-500.flex(title="#{download_type_title}")
+        - if @download.download_type == "youtube_video"
+          .me-1
+            = render IconComponent.new(name: :yt, size: 4)
+          = render IconComponent.new(name: :film, size: 4)
+        - elsif @download.download_type == "youtube_audio"
+          .me-1
+            = render IconComponent.new(name: :yt, size: 4)
+          = render IconComponent.new(name: :audio, size: 4)
+        - elsif @download.download_type == "youtube_subtitles"
+          .me-1
+            = render IconComponent.new(name: :yt, size: 4)
+          = render IconComponent.new(name: :chat, size: 4)
+        - elsif @download.download_type == "wget"
+          = render IconComponent.new(name: :download, size: 4)
+        - elsif @download.download_type == "released_dot_tv"
+          .me-1
+            = render IconComponent.new(name: :download, size: 4)
+          = render IconComponent.new(name: :tv, size: 4)
+        - elsif @download.download_type == "bittorrent"
+          .me-1
+            = render IconComponent.new(name: :users, size: 4)
+          = render IconComponent.new(name: :arrows, size: 4)
+        -# - else
+        -#   = download_type
   %td
     .overflow-hidden.text-ellipsis.whitespace-nowrap(style="width: calc(100vw - 30rem)")
       = link_to @download.url, target: "_blank" do
