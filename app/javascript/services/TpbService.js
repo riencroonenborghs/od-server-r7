@@ -1,7 +1,7 @@
 export class TpbService {
   constructor (search) {
     this.search = search
-    this.SERVER = 'https://thepiratebay.party/'
+    this.SERVER = 'https://tpirbay.site/'
     this.PATH = 'search/'
   }
 
